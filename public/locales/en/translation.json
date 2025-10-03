@@ -1,5 +1,58 @@
 {
-  "welcome": "Welcome to my app",
-  "description": "This is a test description",
-  "switch_to_ar": "Switch to Arabic"
+  "home": "Home",
+  "products": "Products",
+  "about": "About",
+  "cart": "Cart",
+  "favorites": "Favorites",
+  "logo": "Matjar",
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "forgetPassword": "Forgot Password?",
+    "submit": "Login",
+    "noAccount": "Don’t have an account?",
+    "signup": "Sign up",
+    "errors": {
+      "invalidEmail": "Enter a valid email",
+      "emailRequired": "Email is required",
+      "passwordMin": "Password must be at least 6 characters",
+      "passwordRequired": "Password is required"
+    }
+  },
+  "signup": {
+    "title": "Create Account",
+    "name": "Full Name",
+    "phone": "Phone",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "submit": "Sign Up",
+    "haveAccount": "Already have an account?",
+    "login": "Log in",
+    "errors": {
+      "nameShort": "Name is too short",
+      "nameLong": "Name is too long",
+      "nameRequired": "Name is required",
+      "emailInvalid": "Email is invalid",
+      "emailRequired": "Email is required",
+      "phoneInvalid": "Phone number is invalid",
+      "phoneRequired": "Phone number is required",
+      "passwordPattern": "Password must start with an uppercase letter followed by at least 5 letters",
+      "passwordRequired": "Password is required",
+      "passwordMismatch": "Password does not match",
+      "confirmPasswordRequired": "Confirm password is required"
+    }
+  },
+  "reset": {
+    "title": "Reset Password",
+    "email": "Email",
+    "submit": "Send Reset Link",
+    "rememberPassword": "Remembered your password?",
+    "login": "Log in",
+    "errors": {
+      "invalidEmail": "Enter a valid email",
+      "emailRequired": "Email is required"
+    }
+  }
 }

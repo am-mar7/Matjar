@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
     "axios": "^1.12.2",
     "formik": "^2.4.6",
+    "framer-motion": "^12.23.22",
     "generate-react-cli": "^8.3.0-alpha.1",
     "i18next": "^25.5.3",
     "i18next-browser-languagedetector": "^8.2.0",

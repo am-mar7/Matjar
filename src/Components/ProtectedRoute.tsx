@@ -1,9 +1,9 @@
 import React from 'react'
 type ProtectedRouteProps = {
-    chlidren : React.ReactNode
+    children : React.ReactNode
 }
-export default function ProtectedRoute({chlidren}:ProtectedRouteProps) {
+export default function ProtectedRoute({children}:ProtectedRouteProps) {
   return (
-    {chlidren}
+    {children}
   )
 }

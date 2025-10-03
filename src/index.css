@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+.active{
+    color: aliceblue;
+    position: relative;
+}
+.active::after{
+    content: "";
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: aliceblue;
+    height: 2px;
+}
