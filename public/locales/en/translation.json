@@ -22,11 +22,12 @@
   },
   "signup": {
     "title": "Create Account",
+    "confirmPassword":"confirm Password",
     "name": "Full Name",
     "phone": "Phone",
     "email": "Email",
     "password": "Password",
-    "confirmPassword": "Confirm Password",
+    "rePassword": "Confirm Password",
     "submit": "Sign Up",
     "haveAccount": "Already have an account?",
     "login": "Log in",
@@ -38,21 +39,64 @@
       "emailRequired": "Email is required",
       "phoneInvalid": "Phone number is invalid",
       "phoneRequired": "Phone number is required",
-      "passwordPattern": "Password must start with an uppercase letter followed by at least 5 letters",
+      "passwordPattern": "Password must be at least 8 characters and include both letters and numbers",
       "passwordRequired": "Password is required",
       "passwordMismatch": "Password does not match",
-      "confirmPasswordRequired": "Confirm password is required"
+      "rePasswordRequired": "Confirm password is required"
     }
   },
   "reset": {
     "title": "Reset Password",
+    "codesent" :"Reset code has been sent to you e-mail", 
     "email": "Email",
-    "submit": "Send Reset Link",
+    "submit": "Send Reset Code",
     "rememberPassword": "Remembered your password?",
     "login": "Log in",
     "errors": {
       "invalidEmail": "Enter a valid email",
       "emailRequired": "Email is required"
+    }
+  },
+  "profile": {
+    "welcomeBack": "Welcome back, {{name}}!",
+    "cancel": "Cancel",
+    "user": "User",
+    "subtitle": "Manage your account information and preferences.",
+    "cart": "My Cart",
+    "wishlist": "My Wishlist",
+    "logout": "Logout",
+    "accountInfo": "Account Information",
+    "labels": {
+      "name": "Full Name",
+      "email": "Email Address"
+    },
+    "saveBtn": "Save",
+    "notSet": "Not set",
+    "changePassword": "Change Password",
+    "placeholders": {
+      "currentPassword": "Current Password",
+      "password": "New Password",
+      "rePassword": "Confirm New Password"
+    },
+    "hint": "You can edit your personal details or change your password at any time.",
+    "errors": {
+      "currentRequired": "Current password is required",
+      "newRequired": "New password is required",
+      "confirmRequired": "Please confirm your new password",
+      "passwordMatch": "Passwords must match",
+      "passwordSame": "New password must be different from the current password"
+    }
+  },
+  "resetPasswordForm": {
+    "title": "Reset Your Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "submit": "Save New Password",
+    "success": "Your password has been successfully updated!",
+    "errors": {
+      "passwordRequired": "Password is required",
+      "confirmPasswordRequired": "Please confirm your password",
+      "passwordsNotMatch": "Passwords do not match"
     }
   }
 }

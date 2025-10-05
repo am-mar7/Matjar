@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
-import { useFormik } from 'formik';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
-import { UserContext } from '../../Context/UserContext';
-import { useTranslation } from 'react-i18next';
+import { useContext, useState } from "react";
+import { useFormik } from "formik";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+import { UserContext } from "../../Context/UserContext";
+import { useTranslation } from "react-i18next";
 
 export default function SignUp() {
   const { t } = useTranslation();
@@ -22,35 +22,50 @@ export default function SignUp() {
       .required(t("signup.errors.phoneRequired")),
     password: Yup.string()
       .matches(
-        /^[A-Z][a-z]{5,20}$/,
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
         t("signup.errors.passwordPattern")
       )
       .required(t("signup.errors.passwordRequired")),
     rePassword: Yup.string()
-      .oneOf([Yup.ref('password')], t("signup.errors.passwordMismatch"))
+      .oneOf([Yup.ref("password")], t("signup.errors.passwordMismatch"))
       .required(t("signup.errors.confirmPasswordRequired")),
   });
 
   const formik = useFormik({
-    initialValues: { name: '', phone: '', email: '', password: '', rePassword: '' },
+    initialValues: {
+      name: "",
+      phone: "",
+      email: "",
+      password: "",
+      rePassword: "",
+    },
     validationSchema: yupSchema,
     onSubmit: handleRegister,
   });
 
   const [apiError, setApiError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRePassword, setShowRePassword] = useState(false);
   const navigator = useNavigate();
   const user = useContext(UserContext);
 
-  function handleRegister(values: object) {
+  function handleRegister(values: {
+    email: string;
+    name: string;
+    phone: string;
+    password: string;
+    rePassword: string;
+  }) {
     setLoading(true);
     axios
-      .post('https://ecommerce.routemisr.com/api/v1/auth/signup', values)
+      .post("https://ecommerce.routemisr.com/api/v1/auth/signup", values)
       .then(({ data }) => {
         user?.setUserName(data?.user?.name);
-        localStorage.setItem('userToken', JSON.stringify(data.token));
-        localStorage.setItem('userName', JSON.stringify(data.user.name));
-        navigator('/');
+        localStorage.setItem("userToken", data.token);
+        localStorage.setItem("userName", JSON.stringify(data.user.name));
+        localStorage.setItem("userEmail", JSON.stringify(values.email));
+        navigator("/");
       })
       .catch((response) => {
         setApiError(response?.response?.data?.message);
@@ -59,7 +74,7 @@ export default function SignUp() {
   }
 
   const inputClass =
-    "peer block w-full rounded-lg border border-slate-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-slate-900 placeholder-transparent focus:border-slate-900 focus:ring-1 focus:ring-slate-900 focus:outline-none";
+    "peer block w-full rounded-lg border border-slate-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-slate-900 placeholder-transparent focus:border-blue-900 focus:ring-1 focus:ring-slate-900 focus:outline-none";
 
   const labelClass =
     "absolute start-2 top-2 z-10 origin-[0] -translate-y-4 scale-75 transform bg-slate-50 px-1 text-sm text-slate-500 duration-300 " +
@@ -83,11 +98,15 @@ export default function SignUp() {
             id="name"
             type="text"
             placeholder=" "
-            {...formik.getFieldProps('name')}
+            {...formik.getFieldProps("name")}
             className={inputClass}
           />
-          <label htmlFor="name" className={labelClass}>{t("signup.name")}</label>
-          <p className="mt-1 text-xs text-red-500">{formik.touched.name && formik.errors.name}</p>
+          <label htmlFor="name" className={labelClass}>
+            {t("signup.name")}
+          </label>
+          <p className="mt-1 text-xs text-red-500">
+            {formik.touched.name && formik.errors.name}
+          </p>
         </div>
 
         {/* Phone */}
@@ -96,11 +115,15 @@ export default function SignUp() {
             id="phone"
             type="tel"
             placeholder=" "
-            {...formik.getFieldProps('phone')}
+            {...formik.getFieldProps("phone")}
             className={inputClass}
           />
-          <label htmlFor="phone" className={labelClass}>{t("signup.phone")}</label>
-          <p className="mt-1 text-xs text-red-500">{formik.touched.phone && formik.errors.phone}</p>
+          <label htmlFor="phone" className={labelClass}>
+            {t("signup.phone")}
+          </label>
+          <p className="mt-1 text-xs text-red-500">
+            {formik.touched.phone && formik.errors.phone}
+          </p>
         </div>
 
         {/* Email */}
@@ -109,52 +132,83 @@ export default function SignUp() {
             id="email"
             type="email"
             placeholder=" "
-            {...formik.getFieldProps('email')}
+            {...formik.getFieldProps("email")}
             className={inputClass}
           />
-          <label htmlFor="email" className={labelClass}>{t("signup.email")}</label>
-          <p className="mt-1 text-xs text-red-500">{formik.touched.email && formik.errors.email}</p>
+          <label htmlFor="email" className={labelClass}>
+            {t("signup.email")}
+          </label>
+          <p className="mt-1 text-xs text-red-500">
+            {formik.touched.email && formik.errors.email}
+          </p>
         </div>
 
         {/* Password */}
         <div className="relative my-5">
           <input
             id="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder=" "
-            {...formik.getFieldProps('password')}
+            {...formik.getFieldProps("password")}
             className={inputClass}
           />
-          <label htmlFor="password" className={labelClass}>{t("signup.password")}</label>
-          <p className="mt-1 text-xs text-red-500">{formik.touched.password && formik.errors.password}</p>
+          <i
+            onClick={() => setShowPassword(!showPassword)}
+            className={`fa ${
+              showPassword ? "fa-eye-slash" : "fa-eye"
+            } absolute right-3 top-3 text-slate-500 cursor-pointer`}
+          ></i>
+          <label htmlFor="password" className={labelClass}>
+            {t("signup.password")}
+          </label>
+          <p className="mt-1 text-xs text-red-500">
+            {formik.touched.password && formik.errors.password}
+          </p>
         </div>
 
         {/* Confirm Password */}
         <div className="relative my-5">
           <input
             id="rePassword"
-            type="password"
+            type={showRePassword ? "text" : "password"}
             placeholder=" "
-            {...formik.getFieldProps('rePassword')}
+            {...formik.getFieldProps("rePassword")}
             className={inputClass}
           />
-          <label htmlFor="rePassword" className={labelClass}>{t("signup.confirmPassword")}</label>
-          <p className="mt-1 text-xs text-red-500">{formik.touched.rePassword && formik.errors.rePassword}</p>
+          <i
+            onClick={() => setShowRePassword(!showRePassword)}
+            className={`fa ${
+              showRePassword ? "fa-eye-slash" : "fa-eye"
+            } absolute right-3 top-3 text-slate-500 cursor-pointer`}
+          ></i>
+          <label htmlFor="rePassword" className={labelClass}>
+            {t("signup.confirmPassword")}
+          </label>
+          <p className="mt-1 text-xs text-red-500">
+            {formik.touched.rePassword && formik.errors.rePassword}
+          </p>
         </div>
 
         {/* Submit */}
         <button
           type="submit"
           disabled={loading}
-          className="mt-6 w-full rounded-lg bg-slate-900 py-2.5 text-white hover:bg-slate-800 focus:ring-2 focus:ring-slate-600 disabled:opacity-70"
+          className="cursor-pointer mt-6 w-full rounded-lg bg-slate-900 py-2.5 text-white hover:bg-slate-800 focus:ring-2 focus:ring-slate-600 disabled:opacity-70"
         >
-          {loading ? <i className="fas fa-spinner fa-spin"></i> : t("signup.submit")}
+          {loading ? (
+            <i className="fas fa-spinner fa-spin"></i>
+          ) : (
+            t("signup.submit")
+          )}
         </button>
 
         {/* Link */}
         <p className="mt-4 text-center text-sm text-slate-600">
           {t("signup.haveAccount")}{" "}
-          <Link to="/Login" className="font-semibold text-slate-900 hover:underline">
+          <Link
+            to="/Login"
+            className="font-semibold text-slate-900 hover:underline"
+          >
             {t("signup.login")}
           </Link>
         </p>

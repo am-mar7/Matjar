@@ -14,6 +14,7 @@ import SignUp from "./Components/SignUp.tsx";
 import Profile from "./Components/Profile.tsx";
 import Favorites from "./Components/Favorites.tsx";
 import ResetPassword from "./Components/ResetPassword.tsx";
+import ResetPasswordForm from "./Components/ResetPasswordForm.tsx";
 
 
 const route = createBrowserRouter([
@@ -27,6 +28,7 @@ const route = createBrowserRouter([
     {path:'/profile' , element : <Profile/> },
     {path:'/favorites' , element : <Favorites/> },
     {path:'/resetPassword' , element : <ResetPassword/> },
+    {path:'/resetPasswordForm' , element : <ResetPasswordForm/> },
   ]}
 ])
 
