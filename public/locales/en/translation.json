@@ -98,5 +98,29 @@
       "confirmPasswordRequired": "Please confirm your password",
       "passwordsNotMatch": "Passwords do not match"
     }
-  }
+  },
+  "hero_tag": "discover the future of shopping",
+  "hero_title": "Where Style Meets Technology, Welcome to Matjar",
+  "hero_subtitle": "Experience next-level fashion and electronics curated for your lifestyle. Shop smarter, faster, and with confidence at Matjar.",
+  "hero_shop_now": "Explore Now",
+  "hero_learn_more": "Learn More",
+  "hero_footer": "crafted by Matjar",
+  "hero_aria": "Matjar hero section",
+  "features": {
+    "headline": "Why Us?",
+    "free_delivery": "Free Delivery",
+    "free_delivery_desc": "Free shipping on all orders",
+    "money_return": "Money Return",
+    "money_return_desc": "Back guarantee under 7 days",
+    "online_support": "Online Support 24/7",
+    "online_support_desc": "Support available 24 hours a day",
+    "reliable": "Reliable",
+    "reliable_desc": "Trusted by 1000+ brands"
+  },
+  "categories": "Shop by Category",  
+  "brands": "Brands that trust us",
+  "bestSeller" : "Our best sellers",
+    "footerTagline": "Where elegance meets technology — delivering quality, reliability, and trust right to your hands.",
+  "footerBuilt": "Built by"  
+
 }
