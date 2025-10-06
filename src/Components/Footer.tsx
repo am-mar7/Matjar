@@ -20,7 +20,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          Matjar
+          {t('logo')}
         </motion.h2>
 
         {/* Tagline */}
