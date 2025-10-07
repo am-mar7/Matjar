@@ -194,7 +194,7 @@ export default function ProductDetails() {
         { productId },
         { headers: { token: userToken } }
       )
-      .then(({ data }) => {
+      .then(() => {
         setFavBtnLoading(false);
         sendAlert(t("addedtofav"));
       })
@@ -209,7 +209,7 @@ export default function ProductDetails() {
       `https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`,
       { headers: { token: userToken } }
     )
-    .then(({ data }) => {
+    .then(() => {        
       setFavBtnLoading(false);
       sendAlert(t("rmfromfav"));
     })
@@ -238,7 +238,7 @@ export default function ProductDetails() {
   useEffect(() => {
     if (id && !productDetails) getProductDetails(id);
     if (category && !relatedProducts.length) getRelatedProducts(category);
-    checkIfFav()
+    if(localStorage.getItem('userToken'))checkIfFav()
   }, [id, category]);
 
   if (!productDetails) {
@@ -440,7 +440,7 @@ export default function ProductDetails() {
                 </div>
 
                 {/* actions */}
-                <div className="mt-6 flex flex-col md:flex-row gap-3">
+                <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <button
                     onClick={() => id && addToCart(id)}
                     className="w-full cursor-pointer sm:w-auto flex-1 px-6 py-3 bg-slate-900 text-white rounded-xl font-semibold hover:bg-slate-800 transition transform hover:-translate-y-0.5 shadow-lg"
