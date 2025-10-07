@@ -121,6 +121,52 @@
   "brands": "Brands that trust us",
   "bestSeller" : "Our best sellers",
     "footerTagline": "Where elegance meets technology — delivering quality, reliability, and trust right to your hands.",
-  "footerBuilt": "Built by"  
+  "footerBuilt": "Built by",
+  "scroll for more" : "scroll for more" ,
+  "aboutPage": {
+    "tag": "Our Story",
+    "title": "Welcome to",
+    "subtitle": "We're not just a brand—we're a movement. Redefining quality, style, and sustainability for the modern generation.",
+    "scroll": "Scroll to explore",
+    "journey": "Our Journey",
+    "story_title": "The Story Behind Us",
+    "story_p1": "Founded in 2020, we started with a simple vision: to create products that don't compromise on quality, style, or ethics. From a small studio, we've grown into a trusted brand serving thousands worldwide.",
+    "story_p2": "Every product we offer is carefully curated to blend contemporary design with timeless elegance. We believe in quality over quantity, sustainability over trends, and authenticity over imitation.",
+    "story_p3": "Our mission goes beyond commerce—we're building a community of conscious consumers who value craftsmanship, ethical practices, and meaningful connections.",
+    "what_drives": "What Drives Us",
+    "values_title": "Our Core Values",
+    "meet_experts": "Meet The Experts",
+    "team_title": "Our Creative Team",
+    "cta_title": "Join Our Community",
+    "cta_subtitle": "Experience quality that makes a difference. Shop our latest collection and discover why thousands trust us.",
+    "cta_button": "Shop Now"
+  },
+  "values": {
+    "passion": "Passion",
+    "passion_desc": "We pour our hearts into every design, ensuring each piece reflects our love for fashion.",
+    "quality": "Quality",
+    "quality_desc": "Premium materials and meticulous attention to detail in every step.",
+    "sustainability": "Sustainability",
+    "sustainability_desc": "Committed to eco-friendly practices and ethical sourcing.",
+    "innovation": "Innovation",
+    "innovation_desc": "Constantly evolving while staying true to timeless aesthetics.",
+    "community": "Community",
+    "community_desc": "Building meaningful connections with our customers.",
+    "excellence": "Excellence",
+    "excellence_desc": "Never settling for good enough—we strive for perfection."
+  },
+  "stats": {
+    "customers": "Happy Customers",
+    "products": "Products",
+    "countries": "Countries",
+    "satisfaction": "Satisfaction"
+  },
+  "productsPage": {
+    "heading": "Explore Our Collection",
+    "filter_all": "All Products",
+    "currency": "EGP",
+    "no_results_title": "No products found",
+    "no_results_desc": "Try a different category or clear the filter to see everything."
+  }
 
 }

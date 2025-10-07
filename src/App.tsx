@@ -7,7 +7,7 @@ import Home from "./Components/Home";
 import Cart from "./Components/Cart";
 import UserContextProvider from '../Context/UserContext.tsx';
 import Products from "./Components/Products.tsx";
-import About from "./About.tsx";
+import About from "./Components/About.tsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Login from "./Components/Login.tsx";
 import SignUp from "./Components/SignUp.tsx";
