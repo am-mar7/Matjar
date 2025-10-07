@@ -164,9 +164,21 @@
   "productsPage": {
     "heading": "استكشف مجموعتنا",
     "filter_all": "all products",
-    "currency": "ج.م",
     "no_results_title": "لم يتم العثور على منتجات",
-    "no_results_desc": "حاول اختيار تصنيف آخر أو مسح الفلتر لعرض كل المنتجات."
-  }
-  
+    "no_results_desc": "حاول اختيار تصنيف آخر أو مسح الفلتر لعرض كل المنتجات.",
+    "currency": "ج.م",
+    "free_shipping": "شحن مجاني",
+    "warranty": "ضمان لمدة سنة",
+    "add_to_cart": "أضف إلى السلة",
+    "add_to_wishlist": "أضف إلى المفضلة",
+    "share": "مشاركة"    
+  },
+  "suggetion" : "قد يعجبك ايضا",
+  "uhave2beloggind" : "يجب عليك تسجيل الدخول اولا" ,
+  "gologin" : "تسجيل الدخول ؟" ,
+  "addedtocart" : "تم اضافه المنتج للعربه بنجاح",
+  "addedtofav" : "تم اضافه المنتج للمفضلات بنجاح",
+  "rmfromfav" : "تم ازاله المنتج من المفضلات بنجاح"
+
+
 }

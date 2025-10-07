@@ -166,7 +166,18 @@
     "filter_all": "All Products",
     "currency": "EGP",
     "no_results_title": "No products found",
-    "no_results_desc": "Try a different category or clear the filter to see everything."
-  }
+    "no_results_desc": "Try a different category or clear the filter to see everything.",
+    "free_shipping": "Free shipping",
+    "warranty": "1 year warranty",
+    "add_to_cart": "Add to cart",
+    "add_to_wishlist": "Add to wishlist",
+    "share": "Share"    
+  },
+  "suggetion" : "You also might like this",
+  "uhave2beloggind" : "You Have to login first",
+  "gologin" : "go login ?",
+  "addedtocart" : "product added to cart successfully",
+  "addedtofav" : "product added to wishlist successfully",
+  "rmfromfav":"product removed from wishlist successfully"
 
 }

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 type Product = {
   id: string;
@@ -26,14 +27,17 @@ export default function Products() {
 
   async function getProducts() {
     setLoading(true);
-    try {
-      const { data } = await axios.get("https://ecommerce.routemisr.com/api/v1/products");
-      setProducts(data.data || []);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    axios
+      .get("https://ecommerce.routemisr.com/api/v1/products")
+      .then(({ data }) => {
+        setProducts(data.data);
+      })
+      .catch((response) => {
+        console.log(response);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   useEffect(() => {
@@ -95,7 +99,11 @@ export default function Products() {
                 aria-pressed={active}
                 className={`cursor-pointer font-semibold select-none
                   inline-flex items-center gap-2 px-4 py-2 rounded-full transition
-                  ${active ? "bg-slate-800 text-white shadow-md" : "bg-white text-slate-700"}
+                  ${
+                    active
+                      ? "bg-slate-800 text-white shadow-md"
+                      : "bg-white text-slate-700"
+                  }
                   ring-1 ring-slate-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-cyan-300`}
               >
                 {key === "all_products" ? t("productsPage.filter_all") : key}
@@ -112,14 +120,18 @@ export default function Products() {
         )}
       </div>
 
-      <div className="flex justify-start sm:justify-center bg-slate-100 py-10">
-        <div className="max-w-7xl grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+      <div className="flex justify-center sm:justify-center bg-slate-100 py-10">
+        <div className="product-grid grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 max-w-7xl">
           {loading &&
             Array.from({ length: 15 }).map((_, idx) => (
               <div key={idx} className="p-3">
                 <div className="bg-white rounded-2xl shadow-md overflow-hidden p-4">
                   <div className="h-[16rem]">
-                    <Skeleton width={200} height="100%" className="rounded-xl" />
+                    <Skeleton
+                      width={200}
+                      height="100%"
+                      className="rounded-xl"
+                    />
                   </div>
                   <div className="mt-4 space-y-2">
                     <Skeleton height={18} />
@@ -133,7 +145,7 @@ export default function Products() {
           {!loading && visibleProducts && visibleProducts.length > 0 ? (
             <AnimatePresence>
               <motion.div
-                className="contents"
+                className="contents cursor-pointer"
                 variants={container}
                 initial="hidden"
                 animate="show"
@@ -152,38 +164,44 @@ export default function Products() {
                       role="article"
                       aria-label={product.title}
                     >
-                      <div className="relative w-full h-[16rem] overflow-hidden">
-                        <img
-                          src={product.imageCover}
-                          alt={product.slug}
-                          className="w-full h-full object-cover transform group-hover/card:scale-105 transition-transform duration-500 ease-out"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300" />
-                      </div>
-
-                      <div className="p-4 sm:p-5 bg-slate-50 text-slate-800">
-                        <h4 className="font-semibold text-sm sm:text-md 2xl:text-lg truncate">
-                          {product.title?.trim().split(/\s+/).slice(0, 3).join(" ")}
-                        </h4>
-
-                        {product.brand?.name && (
-                          <h6 className="text-sm font-semibold text-slate-500">
-                            {product.brand.name}
-                          </h6>
-                        )}
-
-                        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mt-2">
-                          <span className="text-slate-600 font-semibold text-xs md:text-sm 2xl:text-md">
-                            {product.price} {t("productsPage.currency")}
-                          </span>
-
-                          <span className="flex items-center gap-1 text-xs md:text-sm 2xl:text-md text-yellow-500 font-medium">
-                            {product.ratingsAverage}
-                            <i className="fas fa-star" />
-                          </span>
+                      <Link to={`/productdetails/${product?.category?.name}/${product.id}`}>
+                        <div className="relative w-full h-[18rem] overflow-hidden">
+                          <img
+                            src={product.imageCover}
+                            alt={product.slug}
+                            className="w-full h-full object-cover transform group-hover/card:scale-105 transition-transform duration-500 ease-out"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300" />
                         </div>
-                      </div>
+
+                        <div className="p-4 sm:p-5 bg-slate-50 text-slate-800">
+                          <h4 className="font-semibold text-sm sm:text-md 2xl:text-lg truncate">
+                            {product.title
+                              ?.trim()
+                              .split(/\s+/)
+                              .slice(0, 3)
+                              .join(" ")}
+                          </h4>
+
+                          {product.brand?.name && (
+                            <h6 className="text-sm font-semibold text-slate-500">
+                              {product.brand.name}
+                            </h6>
+                          )}
+
+                          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mt-2">
+                            <span className="text-slate-600 font-semibold text-xs md:text-sm 2xl:text-md">
+                              {product.price} {t("productsPage.currency")}
+                            </span>
+
+                            <span className="flex items-center gap-1 text-xs md:text-sm 2xl:text-md text-yellow-500 font-medium">
+                              {product.ratingsAverage}
+                              <i className="fas fa-star" />
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
                     </div>
                   </motion.div>
                 ))}
@@ -197,7 +215,9 @@ export default function Products() {
                 <p className="text-lg font-semibold">
                   {t("productsPage.no_results_title")}
                 </p>
-                <p className="mt-2 text-sm">{t("productsPage.no_results_desc")}</p>
+                <p className="mt-2 text-sm">
+                  {t("productsPage.no_results_desc")}
+                </p>
               </div>
             </div>
           )}

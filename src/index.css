@@ -30,4 +30,17 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;     /* Firefox */
   }  
+
+  @media (max-width: 450px) {
+    .product-grid {
+      grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+  }
+  
+
+  @media (min-width: 451px) and (max-width: 639px) {
+    .product-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+  }
   
