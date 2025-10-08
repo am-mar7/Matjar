@@ -95,8 +95,8 @@ export default function Profile() {
         headers,
       })
       .then(({ data }) => {
-        localStorage.setItem("userName", JSON.stringify(data.user.name));
-        localStorage.setItem("userEmail", JSON.stringify(data.user.email));
+        localStorage.setItem("userName", data.user.name);
+        localStorage.setItem("userEmail", data.user.email);
         userCtx?.setUserName(data.user.name);
         setProfile({ name: data.user.name, email: data.user.email });
       })
