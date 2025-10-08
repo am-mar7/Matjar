@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Skeleton from "react-loading-skeleton";
@@ -25,7 +25,7 @@ type ProductDetailsType = {
 };
 
 export default function ProductDetails() {
-  const { id, category } = useParams<ProductDetailsParams>();
+  let { id, category } = useParams<ProductDetailsParams>();
   const [productDetails, setProductDetails] =
     useState<ProductDetailsType | null>(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
@@ -118,7 +118,7 @@ export default function ProductDetails() {
   function sendAlert(message: string) {
     const Toast = Swal.mixin({
       toast: true,
-      position: `${document.body.dir === 'ltr' ? "top-start":"top-end"}`,
+      position: `${document.body.dir === "ltr" ? "top-start" : "top-end"}`,
       showConfirmButton: false,
       timer: 3000,
       timerProgressBar: true,
@@ -179,15 +179,17 @@ export default function ProductDetails() {
         console.log(response);
       });
   }
-  function toggleFav(productId:string){
+  function toggleFav(productId: string) {
     if (!checkUserToken()) return;
     // setFavBtnLoading(true);
     const userToken = localStorage.getItem("userToken") || "";
-    console.log(userToken);    
-    isFav ? removefromWishList(userToken , productId) : addToWishList(userToken , productId)
+    console.log(userToken);
+    isFav
+      ? removefromWishList(userToken, productId)
+      : addToWishList(userToken, productId);
   }
-  function addToWishList( userToken:string , productId: string) {
-    setIsFav(true)
+  function addToWishList(userToken: string, productId: string) {
+    setIsFav(true);
     axios
       .post(
         "https://ecommerce.routemisr.com/api/v1/wishlist",
@@ -202,194 +204,130 @@ export default function ProductDetails() {
         console.log(response);
       });
   }
-  function removefromWishList(userToken:string , productId:string){
-    setIsFav(false)
+  function removefromWishList(userToken: string, productId: string) {
+    setIsFav(false);
     axios
-    .delete(
-      `https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`,
-      { headers: { token: userToken } }
-    )
-    .then(() => {        
-      setFavBtnLoading(false);
-      sendAlert(t("rmfromfav"));
-    })
-    .catch((response) => {
-      console.log(response);
-    });
+      .delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`, {
+        headers: { token: userToken },
+      })
+      .then(() => {
+        setFavBtnLoading(false);
+        sendAlert(t("rmfromfav"));
+      })
+      .catch((response) => {
+        console.log(response);
+      });
   }
-  function checkIfFav(){
+  function checkIfFav() {
     if (!checkUserToken()) return;
     const userToken = localStorage.getItem("userToken") || "";
-    axios.get('https://ecommerce.routemisr.com/api/v1/wishlist' , { headers: { token: userToken } })
-    .then(({data}) =>{
-        console.log(data);   
-        data.data.forEach((product:{_id:string}) => {
-            if(product._id === id){
-                setIsFav(true)
-                return;
-            }                
-        });    
-    })
-    .catch((response) =>{
-        console.log(response);        
-    })
+    axios
+      .get("https://ecommerce.routemisr.com/api/v1/wishlist", {
+        headers: { token: userToken },
+      })
+      .then(({ data }) => {
+        console.log(data);
+        data.data.forEach((product: { _id: string }) => {
+          if (product._id === id) {
+            setIsFav(true);
+            return;
+          }
+        });
+      })
+      .catch((response) => {
+        console.log(response);
+      });
   }
 
   useEffect(() => {
-    if (id && !productDetails) getProductDetails(id);
+    !productDetails;
+    if (id) getProductDetails(id);
     if (category && !relatedProducts.length) getRelatedProducts(category);
-    if(localStorage.getItem('userToken'))checkIfFav()
+    if (localStorage.getItem("userToken")) checkIfFav();
   }, [id, category]);
 
-  if (!productDetails) {
-    return (
-      <div className="min-h-dvh bg-gradient-to-b from-slate-50 to-white py-10 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
-            <div className="md:flex">
-              {/* LEFT: Image skeleton */}
-              <div className="md:w-1/2 p-6 md:p-8 bg-slate-50">
-                <div className="rounded-xl overflow-hidden shadow-inner">
-                  <div className="flex items-center justify-center bg-white h-[420px] md:h-[520px]">
-                    <Skeleton
-                      height="100%"
-                      width="100%"
-                      className="rounded-md"
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-4">
-                  <div className="flex gap-2">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="w-[84px] h-[64px] rounded-lg overflow-hidden border border-slate-200 bg-white"
-                      >
-                        <Skeleton height="100%" width="100%" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* RIGHT: Details skeleton */}
-              <div className="md:w-1/2 p-6 md:p-10 flex flex-col justify-between">
-                <div>
-                  <div className="mb-4">
-                    <Skeleton height={28} width="70%" />
-                  </div>
-
-                  <div className="mb-3">
-                    <Skeleton height={18} width="40%" />
-                  </div>
-
-                  <div className="mt-6">
-                    <Skeleton height={28} width="30%" />
-                    <div className="mt-3">
-                      <Skeleton count={3} />
-                    </div>
-                  </div>
-
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    <Skeleton width={140} height={36} />
-                    <Skeleton width={160} height={36} />
-                  </div>
-                </div>
-
-                <div className="mt-6 flex gap-3">
-                  <Skeleton width="60%" height={48} />
-                  <Skeleton width="30%" height={48} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
   const images =
-    productDetails.images && productDetails.images.length
-      ? productDetails.images
-      : [productDetails.imageCover];
+    productDetails?.images && productDetails?.images.length
+      ? productDetails?.images
+      : [productDetails?.imageCover];
 
   return (
     <>
-      <div className="py-10 px-4 mt-4 sm:mt-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <div className="sm:flex">
-              {/* LEFT: Side */}
-              <div className="sm:w-1/2 lg:w-1/3 p-6 md:p-8 bg-slate-50">
-                <div className="rounded-xl overflow-hidden shadow-inner">
-                  <Slider
-                    {...settingsMain}
-                    ref={(c) => {
-                      mainSliderRef.current = c;
-                    }}
-                  >
-                    {images.map((url, idx) => (
-                      <div
-                        key={`main-${idx}`}
-                        className="flex items-center overflow-hidden bg-white justify-center h-[30rem] md:h-[35rem]"
-                      >
-                        <img
-                          src={url}
-                          alt={`${productDetails.slug}-${idx}`}
-                          className=" h-full w-full object-cover transition-transform duration-500 ease-out hover:scale-105"
-                          loading="lazy"
-                        />
-                      </div>
-                    ))}
-                  </Slider>
-                </div>
-
-                {/* thumbnails */}
-                <div className="mt-4">
-                  <Slider
-                    {...settingsThumbs}
-                    ref={(c) => {
-                      thumbSliderRef.current = c;
-                    }}
-                  >
-                    {images.map((url, idx) => (
-                      <button
-                        key={`thumb-${idx}`}
-                        aria-label={`Go to image ${idx + 1}`}
-                        onClick={() => mainSliderRef.current?.slickGoTo(idx)}
-                        className="px-1 focus:outline-none"
-                      >
-                        <div className="w-[84px] h-[64px] rounded-lg overflow-hidden border border-slate-200 bg-white hover:shadow-md transition-all">
+      {productDetails ? (
+        <div className="py-10 px-4 mt-4 sm:mt-10">
+          <div className="max-w-7xl mx-auto">
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+              <div className="sm:flex">
+                {/* LEFT: Side */}
+                <div className="sm:w-1/2 lg:w-1/3 p-6 md:p-8 bg-slate-50">
+                  <div className="rounded-xl overflow-hidden shadow-inner">
+                    <Slider
+                      {...settingsMain}
+                      ref={(c) => {
+                        mainSliderRef.current = c;
+                      }}
+                    >
+                      {images.map((url, idx) => (
+                        <div
+                          key={`main-${idx}`}
+                          className="flex items-center overflow-hidden bg-white justify-center h-[30rem] md:h-[35rem]"
+                        >
                           <img
                             src={url}
-                            alt={`thumb-${idx}`}
-                            className="w-full h-full object-cover"
+                            alt={`${productDetails.slug}-${idx}`}
+                            className=" h-full w-full object-cover transition-transform duration-500 ease-out hover:scale-105"
                             loading="lazy"
                           />
                         </div>
-                      </button>
-                    ))}
-                  </Slider>
+                      ))}
+                    </Slider>
+                  </div>
+
+                  {/* thumbnails */}
+                  <div className="mt-4">
+                    <Slider
+                      {...settingsThumbs}
+                      ref={(c) => {
+                        thumbSliderRef.current = c;
+                      }}
+                    >
+                      {images.map((url, idx) => (
+                        <button
+                          key={`thumb-${idx}`}
+                          aria-label={`Go to image ${idx + 1}`}
+                          onClick={() => mainSliderRef.current?.slickGoTo(idx)}
+                          className="px-1 focus:outline-none"
+                        >
+                          <div className="w-[84px] h-[64px] rounded-lg overflow-hidden border border-slate-200 bg-white hover:shadow-md transition-all">
+                            <img
+                              src={url}
+                              alt={`thumb2-${idx}`}
+                              className="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          </div>
+                        </button>
+                      ))}
+                    </Slider>
+                  </div>
                 </div>
-              </div>
 
-              {/* RIGHT Side */}
-              <div className="sm:w-1/2 lg:w-2/3 p-6 md:p-10 flex flex-col justify-between">
-                <div>
-                  <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
-                    {productDetails.title}
-                  </h1>
+                {/* RIGHT Side */}
+                <div className="sm:w-1/2 lg:w-2/3 p-6 md:p-10 flex flex-col justify-between">
+                  <div>
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
+                      {productDetails.title}
+                    </h1>
 
-                  <div className="mt-3 flex items-center gap-3">
-                    <span className="inline-flex items-center gap-2 bg-slate-100 text-slate-800 px-3 py-1 rounded-full text-sm font-semibold shadow-sm">
-                      <i className="fas fa-tag text-slate-500" />
-                      <span>{productDetails.brand.name}</span>
-                    </span>
-                    {/* reting with stars  */}
-                    <span>
-                      {Array.from({ length: 5 }).map((_, idx) => {
-                        return (
-                          <>
+                    <div className="mt-3 flex items-center gap-3">
+                      <span className="inline-flex items-center gap-2 bg-slate-100 text-slate-800 px-3 py-1 rounded-full text-sm font-semibold shadow-sm">
+                        <i className="fas fa-tag text-slate-500" />
+                        <span>{productDetails.brand.name}</span>
+                      </span>
+                      {/* reting with stars  */}
+                      <span>
+                        {Array.from({ length: 5 }).map((_, idx) => {
+                          return (
                             <span
                               key={idx}
                               className={`inline-flex items-center gap-2 ${
@@ -398,81 +336,152 @@ export default function ProductDetails() {
                                   : "text-gray-400"
                               } font-semibold text-sm`}
                             >
-                              <i className="fas fa-star" />
+                              <i key={idx ** 2} className="fas fa-star" />
                             </span>
-                          </>
-                        );
-                      })}
-                      <span className="mx-2">
-                        {productDetails.ratingsAverage}
+                          );
+                        })}
+                        <span className="mx-2">
+                          {productDetails.ratingsAverage}
+                        </span>
                       </span>
-                    </span>
-                  </div>
+                    </div>
 
-                  <div className="mt-6 flex items-baseline gap-4">
-                    <div className="text-3xl sm:text-4xl font-extrabold text-blue-800">
-                      {productDetails.price}{" "}
-                      <span className="text-sm xl:text-lg text-slate-500">
-                        {t("productsPage.currency")}
-                      </span>
+                    <div className="mt-6 flex items-baseline gap-4">
+                      <div className="text-3xl sm:text-4xl font-extrabold text-blue-800">
+                        {productDetails.price}{" "}
+                        <span className="text-sm xl:text-lg text-slate-500">
+                          {t("productsPage.currency")}
+                        </span>
+                      </div>
+                    </div>
+
+                    <p className="mt-6 text-slate-700 leading-relaxed">
+                      {productDetails.description}
+                    </p>
+
+                    {/* info badges */}
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      <div className="px-3 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm flex items-center gap-2 shadow-sm">
+                        <i className="fas fa-truck text-slate-500" />
+                        <span>
+                          {t("productsPage.free_shipping") ?? "Free shipping"}
+                        </span>
+                      </div>
+                      <div className="px-3 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm flex items-center gap-2 shadow-sm">
+                        <i className="fas fa-shield-alt text-slate-500" />
+                        <span>
+                          {t("productsPage.warranty") ?? "1 year warranty"}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
-                  <p className="mt-6 text-slate-700 leading-relaxed">
-                    {productDetails.description}
-                  </p>
+                  {/* actions */}
+                  <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                    <button
+                      onClick={() => id && addToCart(id)}
+                      className="w-full cursor-pointer sm:w-auto flex-1 px-6 py-3 bg-slate-900 text-white rounded-xl font-semibold hover:bg-slate-800 transition transform hover:-translate-y-0.5 shadow-lg"
+                    >
+                      {cartBtnLoading ? (
+                        <i className="fas fa-spinner fa-spin"></i>
+                      ) : (
+                        <>
+                          <i className="fas fa-shopping-bag mr-2" />
+                          {t("productsPage.add_to_cart") ?? "Add to cart"}
+                        </>
+                      )}
+                    </button>
 
-                  {/* info badges */}
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    <div className="px-3 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm flex items-center gap-2 shadow-sm">
-                      <i className="fas fa-truck text-slate-500" />
-                      <span>
-                        {t("productsPage.free_shipping") ?? "Free shipping"}
-                      </span>
-                    </div>
-                    <div className="px-3 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm flex items-center gap-2 shadow-sm">
-                      <i className="fas fa-shield-alt text-slate-500" />
-                      <span>
-                        {t("productsPage.warranty") ?? "1 year warranty"}
-                      </span>
-                    </div>
+                    <button
+                      onClick={() => id && toggleFav(id)}
+                      className="w-full cursor-pointer sm:w-auto px-6 py-3 border-2 border-slate-200 rounded-xl font-semibold text-slate-800 hover:bg-slate-100 transition"
+                    >
+                      {favBtnLoading ? (
+                        <i className="fas fa-spinner fa-spin"></i>
+                      ) : (
+                        <>
+                          <i
+                            className={`fas fa-heart mr-2 text-${
+                              isFav ? "rose" : "slate"
+                            }-600`}
+                          />
+                        </>
+                      )}
+                    </button>
                   </div>
-                </div>
-
-                {/* actions */}
-                <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                  <button
-                    onClick={() => id && addToCart(id)}
-                    className="w-full cursor-pointer sm:w-auto flex-1 px-6 py-3 bg-slate-900 text-white rounded-xl font-semibold hover:bg-slate-800 transition transform hover:-translate-y-0.5 shadow-lg"
-                  >
-                    {cartBtnLoading ? (
-                      <i className="fas fa-spinner fa-spin"></i>
-                    ) : (
-                      <>
-                        <i className="fas fa-shopping-bag mr-2" />
-                        {t("productsPage.add_to_cart") ?? "Add to cart"}
-                      </>
-                    )}
-                  </button>
-
-                  <button
-                    onClick={() => id && toggleFav(id)}
-                    className="w-full cursor-pointer sm:w-auto px-6 py-3 border-2 border-slate-200 rounded-xl font-semibold text-slate-800 hover:bg-slate-100 transition"
-                  >
-                    {favBtnLoading ? (
-                      <i className="fas fa-spinner fa-spin"></i>
-                    ) : (
-                      <>
-                        <i className={`fas fa-heart mr-2 text-${isFav?'rose':'slate'}-600`} />                        
-                      </>
-                    )}
-                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <>
+            {/* skeleton loading */}
+          <div className="min-h-dvh bg-gradient-to-b from-slate-50 to-white py-10 px-4">
+            <div className="max-w-7xl mx-auto">
+              <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+                <div className="md:flex">
+                  {/* LEFT: Image skeleton */}
+                  <div className="md:w-1/2 h-[45rem] p-6 md:p-8 bg-slate-50">
+                    <div className="rounded-xl overflow-hidden shadow-inner">
+                      <div className="flex items-center justify-center bg-white h-[420px] md:h-[520px]">
+                        <Skeleton
+                          height="100%"
+                          width="100%"
+                          className="rounded-md"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-4">
+                      <div className="flex gap-2">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <div
+                            key={i}
+                            className="w-[84px] h-[64px] rounded-lg overflow-hidden border border-slate-200 bg-white"
+                          >
+                            <Skeleton height="100%" width="100%" />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* RIGHT: Details skeleton */}
+                  <div className="md:w-1/2 p-6 md:p-10 flex flex-col justify-between">
+                    <div>
+                      <div className="mb-4">
+                        <Skeleton height={28} width="70%" />
+                      </div>
+
+                      <div className="mb-3">
+                        <Skeleton height={18} width="40%" />
+                      </div>
+
+                      <div className="mt-6">
+                        <Skeleton height={28} width="30%" />
+                        <div className="mt-3">
+                          <Skeleton count={3} />
+                        </div>
+                      </div>
+
+                      <div className="mt-6 flex flex-wrap gap-3">
+                        <Skeleton width={140} height={36} />
+                        <Skeleton width={160} height={36} />
+                      </div>
+                    </div>
+
+                    <div className="mt-6 flex gap-3">
+                      <Skeleton width="60%" height={48} />
+                      <Skeleton width="30%" height={48} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
       <div className="max-w-7xl mx- py-10  lg:mx-auto">
         <h1 className="text-lg sm:text-2xl lg:text-3xl  font-semibold text-slate-800">
@@ -491,11 +500,20 @@ export default function ProductDetails() {
                         imageCover: string;
                         ratingsAverage: string;
                         price: string;
+                        category: string;
                       },
                       idx
                     ) => (
                       <div key={product.id || idx} className="p-3">
-                        <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group/card">
+                        <div
+                          onClick={() => {
+                            navigate(
+                              `/productdetails/${category}/${product.id}`
+                            );
+                            setProductDetails(null);
+                          }}
+                          className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group/card"
+                        >
                           <div className="relative w-full h-[16rem] overflow-hidden">
                             <img
                               src={product.imageCover}
@@ -529,8 +547,7 @@ export default function ProductDetails() {
                       </div>
                     )
                   )
-                : // ✅ لف السكلتون بنفس structure الـ slide
-                  Array.from({ length: 10 }).map((_, idx) => (
+                : Array.from({ length: 10 }).map((_, idx) => (
                     <div key={idx} className="p-3">
                       <div className="bg-white rounded-2xl shadow-md overflow-hidden p-4">
                         <div className="h-[16rem]">
