@@ -187,7 +187,7 @@ function aboutPage() {
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-cyan-500 uppercase tracking-widest text-xs sm:text-sm font-bold">
+            <span className="text-cyan-500 uppercase tracking-widest mx-3 text-xs sm:text-sm font-bold">
               {t("aboutPage.journey") || "Our Journey"}
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mt-3 mb-6 relative inline-block after:absolute after:left-0 after:bottom-[-6px] after:h-1 after:w-full after:bg-cyan-500 after:rounded-full">
@@ -288,7 +288,7 @@ function aboutPage() {
       <section className="py-12 sm:py-16 lg:py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-cyan-500 uppercase tracking-widest text-xs sm:text-sm font-bold">
+            <span className="text-cyan-500 uppercase mx-2 tracking-widest text-xs sm:text-sm font-bold">
               {t("aboutPage.meet_experts") || "Meet The Experts"}
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mt-3 mb-6 relative inline-block after:absolute after:left-0 after:bottom-[-6px] after:h-1 after:w-full after:bg-cyan-500 after:rounded-full">
@@ -326,7 +326,7 @@ function aboutPage() {
       </section>
 
       {/* CTA SECTION */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-cyan-500 via-cyan-600 to-cyan-700 relative overflow-hidden">
+      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-cyan-900 to-cyan-950 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1600')] bg-cover bg-center opacity-20" />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent" />
         
