@@ -5,15 +5,14 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 
-
 export default function ResetPasswordForm() {
-  const {t} = useTranslation()  
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const email = (location.state as { email?: string })?.email; // ✅ Safe optional typing
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
-  const [loading , setLoading] = useState(false)  
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object({
     password: Yup.string()
@@ -30,27 +29,32 @@ export default function ResetPasswordForm() {
       rePassword: "",
     },
     validationSchema,
-    onSubmit:handleSubmit,
+    onSubmit: handleSubmit,
   });
 
-  function handleSubmit(values:{password:string , rePassword:string , email?:string}){
+  function handleSubmit(values: {
+    password: string;
+    rePassword: string;
+    email?: string;
+  }) {
     console.log(email);
     const data = {
-        newPassword:values.password,
-        email: email,
-    }
-    setLoading(true)
-    axios.put('https://ecommerce.routemisr.com/api/v1/auth/resetPassword' , data)
-    .then(({data}) =>{
-        console.log(data);  
-        navigate('/login')
-    })
-    .catch((response) =>{
-        console.log(response);        
-    })
-    .finally(() =>{
-        setLoading(false)
-    })
+      newPassword: values.password,
+      email: email,
+    };
+    setLoading(true);
+    axios
+      .put("https://ecommerce.routemisr.com/api/v1/auth/resetPassword", data)
+      .then(({ data }) => {
+        console.log(data);
+        navigate("/login");
+      })
+      .catch((response) => {
+        console.log(response);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   useEffect(() => {
@@ -67,7 +71,7 @@ export default function ResetPasswordForm() {
         className="w-full max-w-md bg-slate-50 p-8 rounded-xl shadow-lg"
       >
         <h1 className="text-2xl font-bold text-center mb-6 text-slate-900">
-          {t('resetPasswordForm.title')}
+          {t("resetPasswordForm.title")}
         </h1>
 
         {/* New Password */}
@@ -83,7 +87,9 @@ export default function ResetPasswordForm() {
             onClick={() => setShowPassword(!showPassword)}
             className={`fa ${
               showPassword ? "fa-eye-slash" : "fa-eye"
-            } absolute right-3 top-3 text-slate-500 cursor-pointer`}
+            } absolute ${
+              i18n.dir() === "ltr" ? "right-3" : "left-3"
+            } top-3 text-slate-500 cursor-pointer`}
           ></i>
           <label
             htmlFor="password"
@@ -91,7 +97,7 @@ export default function ResetPasswordForm() {
             peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 
             peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-slate-900 peer-focus:px-1"
           >
-            {t('resetPasswordForm.newPassword')}
+            {t("resetPasswordForm.newPassword")}
           </label>
           {formik.touched.password && formik.errors.password && (
             <p className="mt-1 text-xs text-red-500">
@@ -113,7 +119,9 @@ export default function ResetPasswordForm() {
             onClick={() => setShowRePassword(!showRePassword)}
             className={`fa ${
               showRePassword ? "fa-eye-slash" : "fa-eye"
-            } absolute right-3 top-3 text-slate-500 cursor-pointer`}
+            } absolute ${
+              i18n.dir() === "ltr" ? "right-3" : "left-3"
+            } top-3 text-slate-500 cursor-pointer`}
           ></i>
           <label
             htmlFor="rePassword"
@@ -121,7 +129,7 @@ export default function ResetPasswordForm() {
             peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 
             peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-slate-900 peer-focus:px-1"
           >
-            {t('resetPasswordForm.confirmPassword')}
+            {t("resetPasswordForm.confirmPassword")}
           </label>
           {formik.touched.rePassword && formik.errors.rePassword && (
             <p className="mt-1 text-xs text-red-500">
@@ -134,7 +142,11 @@ export default function ResetPasswordForm() {
           type="submit"
           className="cursor-pointer w-full mt-6 py-2.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800"
         >
-          {loading?<i className="fas fa-spinner fa-spin"></i>:t('resetPasswordForm.submit')}
+          {loading ? (
+            <i className="fas fa-spinner fa-spin"></i>
+          ) : (
+            t("resetPasswordForm.submit")
+          )}
         </button>
       </form>
     </div>

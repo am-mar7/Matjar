@@ -8,7 +8,7 @@ import { UserContext } from "../../Context/UserContext";
 import axios from "axios";
 
 export default function Login() {
-  const { t } = useTranslation();
+  const { t , i18n} = useTranslation();
   const [apiError, setApiError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const navigator = useNavigate();
@@ -96,7 +96,7 @@ export default function Login() {
               onClick={() => setShowPassword(!showPassword)}
               className={`fa ${
                 showPassword ? "fa-eye-slash" : "fa-eye"
-              } absolute right-3 top-3 text-slate-500 cursor-pointer`}
+              } absolute ${i18n.dir() === 'ltr' ? 'right-3' :'left-3'} top-3 text-slate-500 cursor-pointer`}
             ></i>
             <label
               htmlFor="password"

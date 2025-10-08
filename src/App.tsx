@@ -36,7 +36,7 @@ const route = createBrowserRouter([
 
 function App() {
   const { i18n } = useTranslation();
-
+  
   useEffect(() => {
     const lng = i18n.language || "en";
     document.body.dir = lng.startsWith("ar") ? "rtl" : "ltr";

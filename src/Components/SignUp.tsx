@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { UserContext } from "../../Context/UserContext";
 import { useTranslation } from "react-i18next";
+import i18n from "../i18next";
 
 export default function SignUp() {
   const { t } = useTranslation();
@@ -156,7 +157,7 @@ export default function SignUp() {
             onClick={() => setShowPassword(!showPassword)}
             className={`fa ${
               showPassword ? "fa-eye-slash" : "fa-eye"
-            } absolute right-3 top-3 text-slate-500 cursor-pointer`}
+            } absolute ${i18n.dir() === 'ltr' ? 'right-3' : 'left-3'} top-3 text-slate-500 cursor-pointer`}
           ></i>
           <label htmlFor="password" className={labelClass}>
             {t("signup.password")}
@@ -179,7 +180,7 @@ export default function SignUp() {
             onClick={() => setShowRePassword(!showRePassword)}
             className={`fa ${
               showRePassword ? "fa-eye-slash" : "fa-eye"
-            } absolute right-3 top-3 text-slate-500 cursor-pointer`}
+            } absolute ${i18n.dir() === 'ltr' ? 'right-3' : 'left-3'} top-3 text-slate-500 cursor-pointer`}
           ></i>
           <label htmlFor="rePassword" className={labelClass}>
             {t("signup.confirmPassword")}
