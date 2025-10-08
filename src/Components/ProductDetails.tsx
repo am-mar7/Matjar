@@ -8,7 +8,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Skeleton from "react-loading-skeleton";
 import Swal from "sweetalert2";
-import { useWishList } from "../../Context/WishListContext";
+import { useWishList } from "../Context/WishListContext";
+import { useCart } from "../Context/CartContext";
 
 type ProductDetailsParams = {
   id: string;
@@ -27,8 +28,7 @@ type ProductDetailsType = {
 
 export default function ProductDetails() {
   let { id, category } = useParams<ProductDetailsParams>();
-  const [productDetails, setProductDetails] =
-    useState<ProductDetailsType | null>(null);
+  const [productDetails, setProductDetails] =  useState<ProductDetailsType | null>(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const { t } = useTranslation();
   const mainSliderRef = useRef<any>(null);
@@ -37,6 +37,7 @@ export default function ProductDetails() {
   const [cartBtnLoading, setCartBtnLoading] = useState(false);
   const [isFav, setIsFav] = useState<"yes" | "no" | null>(null);
   const { addToWishList, removefromWishList } = useWishList();
+  const {addToCart} = useCart()
 
   const settings = {
     arrows: true,
@@ -117,37 +118,8 @@ export default function ProductDetails() {
     }
     return true;
   }
-  function sendAlert(message: string) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: `${document.body.dir === "ltr" ? "top-start" : "top-end"}`,
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-      },
-    });
-    Toast.fire({
-      icon: "success",
-      title: message,
-    });
-  }
-  function getProductDetails(productId: string) {
-    const userToken = localStorage.getItem("userToken");
-    if (userToken) {
-      axios
-        .get("https://ecommerce.routemisr.com/api/v1/wishlist", {
-          headers: { token: userToken },
-        })
-        .then((res) => {
-          const isInWishlist = res.data.data.some(
-            (product: { _id: string }) => product._id === productId
-          );
-          setIsFav(isInWishlist ? "yes" : "no");
-        });
-    }
+  async function getProductDetails(productId: string) {
+    await knowIfFav(productId)
     axios
       .get(`https://ecommerce.routemisr.com/api/v1/products/${productId}`)
       .then(({ data }) => {
@@ -157,6 +129,24 @@ export default function ProductDetails() {
         console.log("Error while getting details", error);
       });
   }
+  async function knowIfFav(productId: string): Promise<void> {
+    const userToken = localStorage.getItem("userToken");
+    if (!userToken) return;
+  
+    try {
+      const res = await axios.get("https://ecommerce.routemisr.com/api/v1/wishlist", {
+        headers: { token: userToken },
+      });
+  
+      const isInWishlist = res.data.data.some(
+        (product: { _id: string }) => product._id === productId
+      );
+  
+      setIsFav(isInWishlist ? "yes" : "no");
+    } catch (error) {
+      console.error(error);
+    }
+  }  
   function getRelatedProducts(category: string) {
     axios
       .get("https://ecommerce.routemisr.com/api/v1/products")
@@ -173,25 +163,11 @@ export default function ProductDetails() {
         console.log(response);
       });
   }
-  function addToCart(productId: string) {
-    // if not loggind
+  async function addProduct(productId: string) {
     if (!checkUserToken()) return;
     setCartBtnLoading(true);
-    const userToken = localStorage.getItem("userToken") || "";
-    axios
-      .post(
-        "https://ecommerce.routemisr.com/api/v1/cart",
-        { productId },
-        { headers: { token: userToken } }
-      )
-      .then(({ data }) => {
-        console.log(data);
-        setCartBtnLoading(false);
-        sendAlert(`${t("addedtocart")}`);
-      })
-      .catch((response) => {
-        console.log(response);
-      });
+    await addToCart(productId)
+    setCartBtnLoading(false)
   }
   function toggleFav(productId: string) {
     if (!checkUserToken()) return;
@@ -224,7 +200,7 @@ export default function ProductDetails() {
 
   return (
     <>
-      {productDetails && isFav ? (
+      {productDetails ? (
         <div className="py-10 px-4 mt-4 sm:mt-10">
           <div className="max-w-7xl mx-auto">
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
@@ -350,7 +326,7 @@ export default function ProductDetails() {
                   {/* actions */}
                   <div className="mt-6 flex flex-col sm:flex-row gap-3">
                     <button
-                      onClick={() => id && addToCart(id)}
+                      onClick={() => id && addProduct(id)}
                       className="w-full cursor-pointer sm:w-auto flex-1 px-6 py-3 bg-slate-900 text-white rounded-xl font-semibold hover:bg-slate-800 transition transform hover:-translate-y-0.5 shadow-lg"
                     >
                       {cartBtnLoading ? (

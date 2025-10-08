@@ -4,7 +4,7 @@ import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { useWishList } from "../../Context/WishListContext";
+import { useWishList } from "../Context/WishListContext";
 
 type Product = {
   id: string;

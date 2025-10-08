@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
 import { useContext, useState } from "react";
-import { UserContext } from "../../Context/UserContext";
+import { UserContext } from "../Context/UserContext";
 import axios from "axios";
 
 export default function Login() {

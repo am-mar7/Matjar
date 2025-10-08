@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./Components/Layout";
 import Home from "./Components/Home";
 import Cart from "./Components/Cart";
-import UserContextProvider from "../Context/UserContext.tsx";
+import UserContextProvider from "./Context/UserContext.tsx";
 import Products from "./Components/Products.tsx";
 import About from "./Components/About.tsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -16,7 +16,8 @@ import Favorites from "./Components/Favorites.tsx";
 import ResetPassword from "./Components/ResetPassword.tsx";
 import ResetPasswordForm from "./Components/ResetPasswordForm.tsx";
 import ProductDetails from "./Components/ProductDetails.tsx";
-import WishListContextProvider from "../Context/WishListContext.tsx";
+import WishListContextProvider from "./Context/WishListContext.tsx";
+import CartContextProvider from "./Context/CartContext.tsx";
 
 const route = createBrowserRouter([
   {
@@ -47,11 +48,13 @@ function App() {
   }, [i18n.language]);
 
   return (
-    <WishListContextProvider>
-      <UserContextProvider>
-        <RouterProvider router={route} />
-      </UserContextProvider>
-    </WishListContextProvider>
+    <CartContextProvider>
+      <WishListContextProvider>
+        <UserContextProvider>
+          <RouterProvider router={route} />
+        </UserContextProvider>
+      </WishListContextProvider>
+    </CartContextProvider>
   );
 }
 

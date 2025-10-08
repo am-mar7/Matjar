@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { UserContext } from "../../Context/UserContext";
+import { UserContext } from "../Context/UserContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";

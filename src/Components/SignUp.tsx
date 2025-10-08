@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { UserContext } from "../../Context/UserContext";
+import { UserContext } from "../Context/UserContext";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18next";
 
