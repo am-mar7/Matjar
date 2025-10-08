@@ -3,11 +3,12 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import { useTranslation } from "react-i18next";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Skeleton from "react-loading-skeleton";
 import Swal from "sweetalert2";
+import { useWishList } from "../../Context/WishListContext";
 
 type ProductDetailsParams = {
   id: string;
@@ -34,8 +35,9 @@ export default function ProductDetails() {
   const thumbSliderRef = useRef<any>(null);
   const navigate = useNavigate();
   const [cartBtnLoading, setCartBtnLoading] = useState(false);
-  const [favBtnLoading, setFavBtnLoading] = useState(false);
-  const [isFav, setIsFav] = useState(false);
+  const [isFav, setIsFav] = useState<"yes" | "no" | null>(null);
+  const { addToWishList, removefromWishList } = useWishList();
+
   const settings = {
     arrows: true,
     dots: false,
@@ -133,14 +135,26 @@ export default function ProductDetails() {
     });
   }
   function getProductDetails(productId: string) {
+    const userToken = localStorage.getItem("userToken");
+    if (userToken) {
+      axios
+        .get("https://ecommerce.routemisr.com/api/v1/wishlist", {
+          headers: { token: userToken },
+        })
+        .then((res) => {
+          const isInWishlist = res.data.data.some(
+            (product: { _id: string }) => product._id === productId
+          );
+          setIsFav(isInWishlist ? "yes" : "no");
+        });
+    }
     axios
       .get(`https://ecommerce.routemisr.com/api/v1/products/${productId}`)
       .then(({ data }) => {
         setProductDetails(data.data);
-        console.log(data.data);
       })
-      .catch((response) => {
-        console.log("error while getting details", response);
+      .catch((error) => {
+        console.log("Error while getting details", error);
       });
   }
   function getRelatedProducts(category: string) {
@@ -181,69 +195,26 @@ export default function ProductDetails() {
   }
   function toggleFav(productId: string) {
     if (!checkUserToken()) return;
-    // setFavBtnLoading(true);
+
     const userToken = localStorage.getItem("userToken") || "";
-    console.log(userToken);
-    isFav
-      ? removefromWishList(userToken, productId)
-      : addToWishList(userToken, productId);
-  }
-  function addToWishList(userToken: string, productId: string) {
-    setIsFav(true);
-    axios
-      .post(
-        "https://ecommerce.routemisr.com/api/v1/wishlist",
-        { productId },
-        { headers: { token: userToken } }
-      )
-      .then(() => {
-        setFavBtnLoading(false);
-        sendAlert(t("addedtofav"));
-      })
-      .catch((response) => {
-        console.log(response);
-      });
-  }
-  function removefromWishList(userToken: string, productId: string) {
-    setIsFav(false);
-    axios
-      .delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`, {
-        headers: { token: userToken },
-      })
-      .then(() => {
-        setFavBtnLoading(false);
-        sendAlert(t("rmfromfav"));
-      })
-      .catch((response) => {
-        console.log(response);
-      });
-  }
-  function checkIfFav() {
-    if (!checkUserToken()) return;
-    const userToken = localStorage.getItem("userToken") || "";
-    axios
-      .get("https://ecommerce.routemisr.com/api/v1/wishlist", {
-        headers: { token: userToken },
-      })
-      .then(({ data }) => {
-        console.log(data);
-        data.data.forEach((product: { _id: string }) => {
-          if (product._id === id) {
-            setIsFav(true);
-            return;
-          }
-        });
-      })
-      .catch((response) => {
-        console.log(response);
-      });
+
+    setIsFav((prev) => {
+      const next = prev === "yes" ? "no" : "yes";
+
+      if (prev === "yes") {
+        removefromWishList(userToken, productId);
+      } else {
+        addToWishList(userToken, productId);
+      }
+
+      return next;
+    });
   }
 
   useEffect(() => {
     !productDetails;
     if (id) getProductDetails(id);
     if (category && !relatedProducts.length) getRelatedProducts(category);
-    if (localStorage.getItem("userToken")) checkIfFav();
   }, [id, category]);
 
   const images =
@@ -253,7 +224,7 @@ export default function ProductDetails() {
 
   return (
     <>
-      {productDetails ? (
+      {productDetails && isFav ? (
         <div className="py-10 px-4 mt-4 sm:mt-10">
           <div className="max-w-7xl mx-auto">
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
@@ -396,17 +367,11 @@ export default function ProductDetails() {
                       onClick={() => id && toggleFav(id)}
                       className="w-full cursor-pointer sm:w-auto px-6 py-3 border-2 border-slate-200 rounded-xl font-semibold text-slate-800 hover:bg-slate-100 transition"
                     >
-                      {favBtnLoading ? (
-                        <i className="fas fa-spinner fa-spin"></i>
-                      ) : (
-                        <>
-                          <i
-                            className={`fas fa-heart mr-2 text-${
-                              isFav ? "rose" : "slate"
-                            }-600`}
-                          />
-                        </>
-                      )}
+                      <i
+                        className={`fas fa-heart mr-2 text-${
+                          isFav === "yes" ? "rose" : "slate"
+                        }-600`}
+                      />
                     </button>
                   </div>
                 </div>
@@ -416,7 +381,7 @@ export default function ProductDetails() {
         </div>
       ) : (
         <>
-            {/* skeleton loading */}
+          {/* skeleton loading */}
           <div className="min-h-dvh bg-gradient-to-b from-slate-50 to-white py-10 px-4">
             <div className="max-w-7xl mx-auto">
               <div className="bg-white rounded-3xl shadow-xl overflow-hidden">

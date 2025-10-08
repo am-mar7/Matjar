@@ -178,6 +178,15 @@
   "gologin" : "go login ?",
   "addedtocart" : "product added to cart successfully",
   "addedtofav" : "product added to wishlist successfully",
-  "rmfromfav":"product removed from wishlist successfully"
+  "rmfromfav": "Removed from wishlist successfully",
+  "notLoggedInTitle": "You’re not logged in",
+  "notLoggedInDesc": "To view your wishlist, please log in to your account first.",
+  "goToLogin": "Go to Login",
+  "noAccount": "Don’t have an account?",
+  "signUpHere": "Sign up here",
+  "yourWishlist": "Your wishlist",
+  "egp": "EGP",
+  "noFavYet": "No Favorites Yet",
+  "noFavDesc": "You haven’t added any products to your wishlist."
 
 }
