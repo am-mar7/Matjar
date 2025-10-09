@@ -88,7 +88,7 @@ export default function Favorites() {
           <p className="text-slate-400 text-sm mt-4">
             {t("noAccount")}{" "}
             <Link
-              to="/register"
+              to="/signup"
               className="text-slate-700 font-semibold hover:underline"
             >
               {t("signUpHere")}

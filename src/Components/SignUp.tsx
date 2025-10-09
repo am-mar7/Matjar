@@ -29,7 +29,7 @@ export default function SignUp() {
       .required(t("signup.errors.passwordRequired")),
     rePassword: Yup.string()
       .oneOf([Yup.ref("password")], t("signup.errors.passwordMismatch"))
-      .required(t("signup.errors.confirmPasswordRequired")),
+      .required(t("signup.errors.rePasswordRequired")),
   });
 
   const formik = useFormik({
@@ -69,7 +69,7 @@ export default function SignUp() {
         navigator("/");
       })
       .catch((response) => {
-        setApiError(response?.response?.data?.message);
+        setApiError(response?.response?.data?.message || response.message);
       })
       .finally(() => setLoading(false));
   }

@@ -182,6 +182,7 @@
   "notLoggedInTitle": "أنت غير مسجل الدخول",
   "notLoggedInDesc": "لعرض قائمة المفضلة، يُرجى تسجيل الدخول إلى حسابك أولاً.",
   "notLoggedInDesc2": "لعرض العربه، يُرجى تسجيل الدخول إلى حسابك أولاً.",
+  "notLoggedInDesc3": "لعرض الطلبات يُرجى تسجيل الدخول إلى حسابك أولاً.",
   "goToLogin": "الذهاب لتسجيل الدخول",
   "noAccount": "ليس لديك حساب؟",
   "signUpHere": "سجّل هنا",
@@ -236,7 +237,37 @@
     "phoneInvalid": "يجب أن يكون رقم الهاتف رقمًا مصريًا صالحًا",
     "phoneRequired": "الهاتف مطلوب"
   },
-  "orderPlaced" : "تم حجز الطلب"
+  "orderPlaced" : "تم حجز الطلب",
+  "orders": {
+    "orders":"الطلبات",
+    "title": "طلباتي",
+    "notLoggedTitle": "أنت غير مسجل الدخول",
+    "notLoggedDesc": "يرجى تسجيل الدخول لعرض طلباتك.",
+    "goToLogin": "الذهاب إلى تسجيل الدخول",
+    "noAccount": "لا تملك حسابًا؟",
+    "signUpHere": "سجل هنا",
+    "noOrdersTitle": "لا توجد طلبات بعد",
+    "noOrdersDesc": "لم تقم بأي طلبات بعد.",
+    "shopNow": "تسوق الآن",
+    "orderId": "الطلب",
+    "placedOn": "تاريخ الطلب",
+    "total": "الإجمالي",
+    "items": "عنصر",
+    "viewDetails": "عرض التفاصيل",
+    "hideDetails": "إخفاء التفاصيل",
+    "openOrder": "فتح الطلب",
+    "shippingAddress": "عنوان الشحن",
+    "paymentMethod": "طريقة الدفع",
+    "status": {
+      "pending": "قيد الانتظار",
+      "processing": "قيد المعالجة",
+      "shipped": "تم الشحن",
+      "inTransit": "في الطريق",
+      "delivered": "تم التوصيل",
+      "cancelled": "ملغي",
+      "paid": "تم الدفع"
+    }
+  }
 }
 
 

@@ -43,7 +43,7 @@ export default function Login() {
       .catch((response) => {
         console.log(response);
 
-        setApiError(response?.response?.data?.message);
+        setApiError(response?.response?.data?.message || response.message);
       })
       .finally(() => setLoading(false));
   }

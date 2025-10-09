@@ -24,7 +24,6 @@ export default function CartContextProvider({
   const { t } = useTranslation();
   // const navigate = useNavigate() why can i use
   const userToken = localStorage.getItem("userToken") || "";
-  console.log(userToken);
 
   async function addToCart(productId: string): Promise<void> {
     try {
@@ -98,6 +97,7 @@ export default function CartContextProvider({
     }
   }
   async function createCheckoutSession(
+
     id: string,
     shippingAddress: { details: string; phone: string; city: string }
   ): Promise<any> {

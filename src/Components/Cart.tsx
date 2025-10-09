@@ -34,9 +34,10 @@ export default function Cart() {
   const [sessionId, setSessionId] = useState<string>("");
   const { t } = useTranslation();
   const [showForm, setShowForm] = useState(false);
+
   async function getCart() {
     setLoading(true);
-    const res = await getLoggedUserCart();
+    const res = await getLoggedUserCart();  
     setProducts(res.products);
     setTotal(res.totalCartPrice);
     setSessionId(res._id);
@@ -88,7 +89,7 @@ export default function Cart() {
           <p className="text-slate-400 text-sm mt-6">
             {t("noAccount")}{" "}
             <Link
-              to="/register"
+              to="/signup"
               className="text-slate-700 font-semibold hover:underline"
             >
               {t("signUpHere")}

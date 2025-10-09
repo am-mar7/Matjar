@@ -424,7 +424,7 @@ export default function ProductDetails() {
         </>
       )}
 
-      <div className="max-w-7xl mx- py-10  lg:mx-auto">
+      <div className="max-w-7xl mx- py-10  lg:mx-auto mx-6 sm:mx-0">
         <h1 className="text-lg sm:text-2xl lg:text-3xl  font-semibold text-slate-800">
           {t("suggetion")}
         </h1>

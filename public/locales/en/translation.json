@@ -182,6 +182,7 @@
   "notLoggedInTitle": "You’re not logged in",
   "notLoggedInDesc": "To view your wishlist, please log in to your account first.",
   "notLoggedInDesc2": "To view your Cart, please log in to your account first.",
+  "notLoggedInDesc3": "To view your Orders, please log in to your account first.",
   "goToLogin": "Go to Login",
   "noAccount": "Don’t have an account?",
   "signUpHere": "Sign up here",
@@ -221,6 +222,36 @@
     "phoneInvalid": "Phone must be a valid Egyptian number",
     "phoneRequired": "Phone is required"
   },
-  "orderPlaced" : "order placed"
+  "orderPlaced" : "order placed",
+  "orders": {
+    "orders":"orders",
+    "title": "My Orders",
+    "notLoggedTitle": "You are not logged in",
+    "notLoggedDesc": "Please log in to view your orders.",
+    "goToLogin": "Go to Login",
+    "noAccount": "Don't have an account?",
+    "signUpHere": "Sign up here",
+    "noOrdersTitle": "No orders yet",
+    "noOrdersDesc": "You haven't placed any orders yet.",
+    "shopNow": "Shop now",
+    "orderId": "Order",
+    "placedOn": "Placed on",
+    "total": "Total",
+    "items": "items",
+    "viewDetails": "View details",
+    "hideDetails": "Hide details",
+    "openOrder": "Open order",
+    "shippingAddress": "Shipping address",
+    "paymentMethod": "Payment method",
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "shipped": "Shipped",
+      "inTransit": "In transit",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled",
+      "paid": "Paid"
+    }
+  }
   
 }

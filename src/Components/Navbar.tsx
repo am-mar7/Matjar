@@ -29,7 +29,7 @@ export default function Navbar() {
 
         {/* Desktop Links */}
         <nav className="hidden md:flex gap-8">
-          {["home", "products", "about", "cart", "favorites"].map((item, idx) => (
+          {["home", "products", "about", "cart", "favorites" , 'allorders'].map((item, idx) => (
             <NavLink
               key={idx}
               to={item === "home" ? "/" : `/${item}`}
@@ -39,7 +39,7 @@ export default function Navbar() {
                 } hover:text-blue-600`
               }
             >
-              {t(item)}
+              {item === 'allorders' ? t('orders.orders'): t(item)}
             </NavLink>
           ))}
         </nav>
@@ -119,14 +119,14 @@ export default function Navbar() {
 
             {/* Links */}
             <nav className="flex flex-col gap-5 mt-10 text-sm sm:text-base">
-              {["home", "products", "about", "cart", "favorites"].map((item, idx) => (
+              {["home", "products", "about", "cart", "favorites" , "allorders"].map((item, idx) => (
                 <Link
                   key={idx}
                   to={item === "home" ? "/" : `/${item}`}
                   className="text-slate-50 hover:text-cyan-300 transition"
                   onClick={() => setIsOpen(false)}
                 >
-                  {t(item)}
+                  {item === 'allorders' ? t('orders.orders'): item}
                 </Link>
               ))}
             </nav>

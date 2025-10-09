@@ -19,6 +19,7 @@ import ProductDetails from "./Components/ProductDetails.tsx";
 import WishListContextProvider from "./Context/WishListContext.tsx";
 import CartContextProvider from "./Context/CartContext.tsx";
 import Orders from "./Components/Orders.tsx";
+import ProtectedRoute from "./Components/ProtectedRoute.tsx";
 
 const route = createBrowserRouter([
   {
@@ -26,12 +27,12 @@ const route = createBrowserRouter([
     element: <Layout></Layout>,
     children: [
       { path: "", element: <Home /> },
-      { path: "/cart", element: <Cart /> },
+      { path: "/cart", element:  <Cart /> },
       { path: "/products", element: <Products /> },
       { path: "/about", element: <About /> },
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <SignUp /> },
-      { path: "/profile", element: <Profile /> },
+      { path: "/profile", element: <ProtectedRoute> <Profile/> </ProtectedRoute>  },
       { path: "/favorites", element: <Favorites /> },
       { path: "/resetPassword", element: <ResetPassword /> },
       { path: "/resetPasswordForm", element: <ResetPasswordForm /> },
