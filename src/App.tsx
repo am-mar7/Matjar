@@ -20,6 +20,7 @@ import WishListContextProvider from "./Context/WishListContext.tsx";
 import CartContextProvider from "./Context/CartContext.tsx";
 import Orders from "./Components/Orders.tsx";
 import ProtectedRoute from "./Components/ProtectedRoute.tsx";
+import NotFound from "./Components/NotFound.tsx";
 
 const route = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ const route = createBrowserRouter([
       { path: "/resetPasswordForm", element: <ResetPasswordForm /> },
       { path: "/productdetails/:category/:id", element: <ProductDetails /> },
       { path: "/allorders", element: <Orders /> },
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);
