@@ -9,14 +9,12 @@ export default function CategoriesSkeleton(props: { cards: number }) {
     <>
       <div className="flex justify-center items-center">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 px-5 py-10 max-w-7xl">
-          {array.map((_, idx) => {        
+          {array.map((_, idx) => {
             return (
-              <>
-                <div key={idx} className="flex flex-col gap-4">
-                  <Skeleton width={200} height={200}></Skeleton>
-                  <Skeleton width={200} height={50}></Skeleton>
-                </div>
-              </>
+              <div key={idx} className="flex flex-col gap-4">
+                <Skeleton width={200} height={200}></Skeleton>
+                <Skeleton width={200} height={50}></Skeleton>
+              </div>
             );
           })}
         </div>
