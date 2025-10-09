@@ -42,7 +42,7 @@ export default function CheckoutForm({ cartId }: CheckoutFormProps) {
         // cash on delivery flow
         const res = await createCashOrder(cartId, shippingAddress);
         if (res?.status === "success") {
-            navigate('/')
+            navigate('/allorders')
         }
         console.log("cash order result", res);
       }
