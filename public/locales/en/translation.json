@@ -181,12 +181,46 @@
   "rmfromfav": "Removed from wishlist successfully",
   "notLoggedInTitle": "You’re not logged in",
   "notLoggedInDesc": "To view your wishlist, please log in to your account first.",
+  "notLoggedInDesc2": "To view your Cart, please log in to your account first.",
   "goToLogin": "Go to Login",
   "noAccount": "Don’t have an account?",
   "signUpHere": "Sign up here",
   "yourWishlist": "Your wishlist",
   "egp": "EGP",
   "noFavYet": "No Favorites Yet",
-  "noFavDesc": "You haven’t added any products to your wishlist."
-
+  "noFavDesc": "You haven’t added any products to your wishlist.",
+  "shoppingCart": "Shopping Cart",
+  "cartEmptyTitle": "Your cart is empty",
+  "cartEmptyDesc": "Add some products to see them here.",
+  "shopNow": "Shop Now",
+  "removeItem": "Remove item",
+  "orderSummary": "Order Summary",
+  "subtotal": "Subtotal",
+  "shipping": "Shipping",
+  "free": "Free",
+  "total": "Total",
+  "checkoutBtn": "Proceed to Checkout",
+  "HideBtn" : "Hide Form",
+  "checkout": {
+    "title": "Shipping Information",
+    "address": "Address",
+    "city": "City",
+    "phone": "Additional Phone",
+    "processing": "Processing...",
+    "proceed": "Proceed to Pay",
+    "payment": {
+      "label": "Payment method",
+      "paypal": "PayPal",
+      "cashOnDelivery": "Cash on delivery"
+    }
+  },
+  "validation": {
+    "addressMin": "Address must be at least 5 characters",
+    "addressRequired": "Address is required",
+    "cityRequired": "City is required",
+    "phoneInvalid": "Phone must be a valid Egyptian number",
+    "phoneRequired": "Phone is required"
+  },
+  "orderPlaced" : "order placed"
+  
 }

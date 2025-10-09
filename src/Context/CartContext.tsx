@@ -5,17 +5,28 @@ import { useTranslation } from "react-i18next";
 // import { useNavigate } from "react-router-dom";
 
 type CartContextType = {
-    addToCart: (productId:string) => Promise<void>,
-}
+  addToCart: (productId: string) => Promise<void>;
+  getLoggedUserCart: () => Promise<any>;
+  updateCartItemCount: (productId: string, count: number) => Promise<any>;
+  removeItemFromCart: (productId: string) => Promise<any>;
+  createCheckoutSession:(id: string, shippingAddress: { details: string; phone: string; city: string })=> Promise<any>;
+  createCashOrder : (id: string, shippingAddress: { details: string; phone: string; city: string })=> Promise<any>;
+};
 
-export const CartContext = createContext<CartContextType | undefined>(undefined)
-export default function CartContextProvider({children}:{children:React.ReactNode}) {
-  const {t} = useTranslation()
-  // const navigate = useNavigate() why can i use 
+export const CartContext = createContext<CartContextType | undefined>(
+  undefined
+);
+export default function CartContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { t } = useTranslation();
+  // const navigate = useNavigate() why can i use
+  const userToken = localStorage.getItem("userToken") || "";
+  console.log(userToken);
 
   async function addToCart(productId: string): Promise<void> {
-    const userToken = localStorage.getItem("userToken") || "";
-  
     try {
       const { data } = await axios.post(
         "https://ecommerce.routemisr.com/api/v1/cart",
@@ -23,13 +34,13 @@ export default function CartContextProvider({children}:{children:React.ReactNode
         { headers: { token: userToken } }
       );
       sendAlert(`${t("addedtocart")}`);
-      console.log(data);
+      console.log("add to cart res", data);
     } catch (error) {
       console.error(error);
     }
   }
-  
-  function sendAlert(message: string):void {
+  // helper
+  function sendAlert(message: string): void {
     const Toast = Swal.mixin({
       toast: true,
       position: `${document.body.dir === "ltr" ? "top-start" : "top-end"}`,
@@ -46,16 +57,105 @@ export default function CartContextProvider({children}:{children:React.ReactNode
       title: message,
     });
   }
+  async function getLoggedUserCart(): Promise<any> {
+    try {
+      const { data } = await axios.get(
+        "https://ecommerce.routemisr.com/api/v1/cart",
+        { headers: { token: userToken } }
+      );
+      console.log("get cart res", data.data);
+      return data.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function updateCartItemCount(
+    productId: string,
+    count: number
+  ): Promise<any> {
+    try {
+      const data = await axios.put(
+        `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
+        { count },
+        { headers: { token: userToken } }
+      );
+      console.log("update cart res", data?.data?.data);
+      return data?.data?.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function removeItemFromCart(productId: string) {
+    try {
+      const data = await axios.delete(
+        `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
+        { headers: { token: userToken } }
+      );
+      console.log("rm item res", data?.data?.data);
+      return data?.data?.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function createCheckoutSession(
+    id: string,
+    shippingAddress: { details: string; phone: string; city: string }
+  ): Promise<any> {
+    try {
+      const { data } = await axios.post(
+        `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${id}?url=http://localhost:5173`,
+        { shippingAddress },
+        { headers: { token: userToken } }
+      );
+  
+      console.log("checkout session data", data);
+      return data;
+    } catch (error) {
+      console.error("checkout session error", error);
+      throw error; 
+    }
+  }  
+  async function createCashOrder(
+    id: string,
+    shippingAddress: { details: string; phone: string; city: string }
+  ): Promise<any> {
+    try {
+      const { data } = await axios.post(
+        `https://ecommerce.routemisr.com/api/v1/orders/${id}`,
+        { shippingAddress },
+        { headers: { token: userToken } }
+      );
+  
+      console.log("checkout session data", data);
+      
+      if (data?.status === "success") {
+        sendAlert(t('orderPlaced'))
+      return data;
+    }
+    } catch (error) {
+      console.error("checkout session error", error);
+      throw error; 
+    }
+  }  
 
   return (
-    <CartContext.Provider value={{addToCart}}>
+    <CartContext.Provider
+      value={{
+        addToCart,
+        getLoggedUserCart,
+        removeItemFromCart,
+        updateCartItemCount,
+        createCheckoutSession,
+        createCashOrder,
+      }}
+    >
       {children}
     </CartContext.Provider>
-  )
+  );
 }
 
-export function useCart(){
-  const context = useContext(CartContext)
+export function useCart() {
+  const context = useContext(CartContext);
   if (!context)
     throw new Error("useCart must be used within a CartContextProvider");
   return context;
