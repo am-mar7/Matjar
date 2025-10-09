@@ -5,7 +5,7 @@ import Footer from './Footer'
 export default function Layout() {
   return (<>
       <Navbar/>
-      <div className='min-h-dvh'>
+      <div className='min-h-dvh py-15'>
         <Outlet></Outlet>
       </div>
       <Footer/>

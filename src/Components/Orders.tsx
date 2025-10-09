@@ -79,7 +79,6 @@ export default function Orders() {
 
   useEffect(() => {
     const token = localStorage.getItem("userToken");
-    console.log(token);
     if (token) {
       getCartOwner(token);
     }

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../Context/UserContext";
 import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,15 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [lang, setLang] = useState<string>(i18n.language || "en");
   const [langOpen, setLangOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50); // activate after 50px scroll
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [])
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
     setLang(lng);
@@ -18,7 +26,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-slate-50 text-slate-950 shadow-md">
+    <header className="bg-slate-50 text-slate-950 shadow-md fixed top-0 left-0 right-0 z-50">
       <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4">
         {/* Logo */}
         <Link to='/'>
