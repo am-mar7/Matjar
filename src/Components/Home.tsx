@@ -16,11 +16,11 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 import BrandsSkeleton from "./skeletonCompnentx/BrandsSkeleton";
-const images: string[] = [
-  "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600",
-  "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1600",
-  "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600",
-];
+import homebg1 from "../assets/Images/homebg1.jpeg";
+import homebg2 from "../assets/Images/homebg2.jpeg";
+import homebg3 from "../assets/Images/homebg3.jpeg";
+import homebg4 from "../assets/Images/homebg4.jpeg";
+const images: string[] = [homebg1, homebg2, homebg3 , homebg4];
 
 function Home() {
   const { t } = useTranslation();
@@ -61,15 +61,12 @@ function Home() {
     initialSlide: 0,
     swipeToSlide: true,
     className: "center",
+    cssEase: "ease-in-out",
     infinite: true,
+    adaptiveHeight: true,
     centerPadding: "60px",
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    afterChange: function (index: number) {
-      console.log(
-        `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-      );
-    },
     // small padding inside slides handled via responsive wrapper classes (p-2 / p-3)
     responsive: [
       // extra-large desktops
@@ -347,9 +344,9 @@ function Home() {
 
             {/* Scroll Hint */}
             <div className="absolute flex text-sm sm:text-md 2xl:text-lg -bottom-10 left-1/2 transform -translate-x-1/2 items-center gap-2 text-slate-500">
-                <span className="animate-bounce">←</span>
-                <span>{t('scroll for more')}</span>
-                <span className="animate-bounce">→</span>
+              <span className="animate-bounce">←</span>
+              <span>{t("scroll for more")}</span>
+              <span className="animate-bounce">→</span>
             </div>
           </div>
         </div>
@@ -431,7 +428,9 @@ function Home() {
 
               <div className="absolute flex text-sm sm:text-md 2xl:text-lg -bottom-10 left-1/2 transform -translate-x-1/2 items-center gap-2 text-slate-500">
                 <span className="animate-bounce">←</span>
-                <span className="text-sm sm:text-lg">{t('scroll for more')}</span>
+                <span className="text-sm sm:text-lg">
+                  {t("scroll for more")}
+                </span>
                 <span className="animate-bounce">→</span>
               </div>
             </div>

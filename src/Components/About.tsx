@@ -1,4 +1,3 @@
-// src/components/aboutPage.tsx
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
@@ -11,11 +10,12 @@ import {
   FaStar,
 } from "react-icons/fa";
 
-const heroImages: string[] = [
-  "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600",
-  "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1600",
-  "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600",
-];
+import homebg1 from "../assets/Images/homebg1.jpeg";
+import homebg2 from "../assets/Images/homebg2.jpeg";
+import homebg3 from "../assets/Images/homebg3.jpeg";
+import homebg4 from "../assets/Images/homebg4.jpeg";
+
+const heroImages: string[] = [homebg1, homebg2, homebg3, homebg4];
 
 // Types
 interface Value {
@@ -45,32 +45,44 @@ function aboutPage() {
     {
       icon: <FaHeart className="w-12 h-12 md:w-14 md:h-14 text-cyan-400" />,
       title: t("values.passion") || "Passion",
-      desc: t("values.passion_desc") || "We pour our hearts into every design, ensuring each piece reflects our love for fashion.",
+      desc:
+        t("values.passion_desc") ||
+        "We pour our hearts into every design, ensuring each piece reflects our love for fashion.",
     },
     {
       icon: <FaAward className="w-12 h-12 md:w-14 md:h-14 text-cyan-400" />,
       title: t("values.quality") || "Quality",
-      desc: t("values.quality_desc") || "Premium materials and meticulous attention to detail in every step.",
+      desc:
+        t("values.quality_desc") ||
+        "Premium materials and meticulous attention to detail in every step.",
     },
     {
       icon: <FaRecycle className="w-12 h-12 md:w-14 md:h-14 text-cyan-400" />,
       title: t("values.sustainability") || "Sustainability",
-      desc: t("values.sustainability_desc") || "Committed to eco-friendly practices and ethical sourcing.",
+      desc:
+        t("values.sustainability_desc") ||
+        "Committed to eco-friendly practices and ethical sourcing.",
     },
     {
       icon: <FaLightbulb className="w-12 h-12 md:w-14 md:h-14 text-cyan-400" />,
       title: t("values.innovation") || "Innovation",
-      desc: t("values.innovation_desc") || "Constantly evolving while staying true to timeless aesthetics.",
+      desc:
+        t("values.innovation_desc") ||
+        "Constantly evolving while staying true to timeless aesthetics.",
     },
     {
       icon: <FaUsers className="w-12 h-12 md:w-14 md:h-14 text-cyan-400" />,
       title: t("values.community") || "Community",
-      desc: t("values.community_desc") || "Building meaningful connections with our customers.",
+      desc:
+        t("values.community_desc") ||
+        "Building meaningful connections with our customers.",
     },
     {
       icon: <FaStar className="w-12 h-12 md:w-14 md:h-14 text-cyan-400" />,
       title: t("values.excellence") || "Excellence",
-      desc: t("values.excellence_desc") || "Never settling for good enough—we strive for perfection.",
+      desc:
+        t("values.excellence_desc") ||
+        "Never settling for good enough—we strive for perfection.",
     },
   ];
 
@@ -80,25 +92,29 @@ function aboutPage() {
       id: 1,
       name: "Alex Johnson",
       role: "Creative Director",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
+      image:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
     },
     {
       id: 2,
       name: "Sarah Miller",
       role: "Lead Designer",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400",
+      image:
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400",
     },
     {
       id: 3,
       name: "Michael Chen",
       role: "Brand Manager",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400",
+      image:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400",
     },
     {
       id: 4,
       name: "Emma Davis",
       role: "Marketing Head",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400",
+      image:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400",
     },
   ];
 
@@ -159,7 +175,7 @@ function aboutPage() {
             transition={{ delay: 0.2, duration: 0.9 }}
           >
             {t("aboutPage.title") || "Welcome to"}{" "}
-            <span className="text-cyan-400">{t('logo')}</span>
+            <span className="text-cyan-400">{t("logo")}</span>
           </motion.h1>
 
           <motion.p
@@ -168,7 +184,8 @@ function aboutPage() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.45, duration: 0.9 }}
           >
-            {t("aboutPage.subtitle") || "We're not just a brand—we're a movement. Redefining quality, style, and sustainability for the modern generation."}
+            {t("aboutPage.subtitle") ||
+              "We're not just a brand—we're a movement. Redefining quality, style, and sustainability for the modern generation."}
           </motion.p>
         </div>
 
@@ -198,13 +215,16 @@ function aboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="space-y-6">
               <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
-                {t("aboutPage.story_p1") || "Founded in 2020, we started with a simple vision: to create products that don't compromise on quality, style, or ethics. From a small studio, we've grown into a trusted brand serving thousands worldwide."}
+                {t("aboutPage.story_p1") ||
+                  "Founded in 2020, we started with a simple vision: to create products that don't compromise on quality, style, or ethics. From a small studio, we've grown into a trusted brand serving thousands worldwide."}
               </p>
               <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
-                {t("aboutPage.story_p2") || "Every product we offer is carefully curated to blend contemporary design with timeless elegance. We believe in quality over quantity, sustainability over trends, and authenticity over imitation."}
+                {t("aboutPage.story_p2") ||
+                  "Every product we offer is carefully curated to blend contemporary design with timeless elegance. We believe in quality over quantity, sustainability over trends, and authenticity over imitation."}
               </p>
               <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
-                {t("aboutPage.story_p3") || "Our mission goes beyond commerce—we're building a community of conscious consumers who value craftsmanship, ethical practices, and meaningful connections."}
+                {t("aboutPage.story_p3") ||
+                  "Our mission goes beyond commerce—we're building a community of conscious consumers who value craftsmanship, ethical practices, and meaningful connections."}
               </p>
             </div>
 
@@ -329,13 +349,14 @@ function aboutPage() {
       <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-cyan-900 to-cyan-950 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1600')] bg-cover bg-center opacity-20" />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent" />
-        
+
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-6">
             {t("aboutPage.cta_title") || "Join Our Community"}
           </h2>
           <p className="text-white/95 text-base sm:text-lg lg:text-xl mb-8 max-w-2xl mx-auto">
-            {t("aboutPage.cta_subtitle") || "Experience quality that makes a difference. Shop our latest collection and discover why thousands trust us."}
+            {t("aboutPage.cta_subtitle") ||
+              "Experience quality that makes a difference. Shop our latest collection and discover why thousands trust us."}
           </p>
           <button className="bg-slate-900 hover:bg-white text-white hover:text-cyan-600 px-8 sm:px-12 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-base uppercase tracking-wider shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
             {t("aboutPage.cta_button") || "Shop Now"}
