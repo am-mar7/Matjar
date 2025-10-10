@@ -7,7 +7,7 @@ Built with **React**, **Tailwind CSS**, **Framer Motion**, and **Axios**, Matjar
 
 ## 🚀 Live Demo
 
-🔗 [Visit Matjar Live Demo](YOUR_DEPLOYED_LINK_HERE)
+🔗 [Visit Matjar Live Demo](https://am-mar7.github.io/Matjar/)
 
 ---
 
