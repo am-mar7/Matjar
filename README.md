@@ -54,9 +54,9 @@ Built with **React**, **Tailwind CSS**, **Framer Motion**, and **Axios**, Matjar
 | **State Management** | React Hooks & Context API |
 | **Internationalization** | i18next |
 | **Payments** | Stripe |
-| **Deployment** | Vercel / Netlify (or specify yours) |
+| **Deployment** | github pages |
 
 ---
 
-## 📂 Folder Structure
+
 
