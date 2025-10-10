@@ -22,27 +22,38 @@ import Orders from "./Components/Orders.tsx";
 import ProtectedRoute from "./Components/ProtectedRoute.tsx";
 import NotFound from "./Components/NotFound.tsx";
 
-const route = createBrowserRouter([
-  {
-    path: "",
-    element: <Layout></Layout>,
-    children: [
-      { path: "", element: <Home /> },
-      { path: "/cart", element:  <Cart /> },
-      { path: "/products", element: <Products /> },
-      { path: "/about", element: <About /> },
-      { path: "/login", element: <Login /> },
-      { path: "/signup", element: <SignUp /> },
-      { path: "/profile", element: <ProtectedRoute> <Profile/> </ProtectedRoute>  },
-      { path: "/favorites", element: <Favorites /> },
-      { path: "/resetPassword", element: <ResetPassword /> },
-      { path: "/resetPasswordForm", element: <ResetPasswordForm /> },
-      { path: "/productdetails/:category/:id", element: <ProductDetails /> },
-      { path: "/allorders", element: <Orders /> },
-      { path: "*", element: <NotFound /> },
-    ],
-  },
-]);
+const route = createBrowserRouter(
+  [
+    {
+      path: "",
+      element: <Layout></Layout>,
+      children: [
+        { path: "", element: <Home /> },
+        { path: "/cart", element: <Cart /> },
+        { path: "/products", element: <Products /> },
+        { path: "/about", element: <About /> },
+        { path: "/login", element: <Login /> },
+        { path: "/signup", element: <SignUp /> },
+        {
+          path: "/profile",
+          element: (
+            <ProtectedRoute>
+              {" "}
+              <Profile />{" "}
+            </ProtectedRoute>
+          ),
+        },
+        { path: "/favorites", element: <Favorites /> },
+        { path: "/resetPassword", element: <ResetPassword /> },
+        { path: "/resetPasswordForm", element: <ResetPasswordForm /> },
+        { path: "/productdetails/:category/:id", element: <ProductDetails /> },
+        { path: "/allorders", element: <Orders /> },
+        { path: "*", element: <NotFound /> },
+      ],
+    },
+  ],
+  { basename: "/Matjar" }
+);
 
 function App() {
   const { i18n } = useTranslation();
