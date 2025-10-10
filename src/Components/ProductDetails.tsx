@@ -1,4 +1,3 @@
-// src/components/ProductDetails.tsx
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
@@ -10,7 +9,7 @@ import Skeleton from "react-loading-skeleton";
 import Swal from "sweetalert2";
 import { useWishList } from "../Context/WishListContext";
 import { useCart } from "../Context/CartContext";
-
+import ProductsSlider from "./ProductsSlider";
 type ProductDetailsParams = {
   id: string;
   category: string;
@@ -38,45 +37,6 @@ export default function ProductDetails() {
   const [isFav, setIsFav] = useState<"yes" | "no" | null>(null);
   const { addToWishList, removefromWishList } = useWishList();
   const {addToCart} = useCart()
-
-  const settings = {
-    arrows: true,
-    dots: false,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    swipeToSlide: true,
-    className: "center",
-    infinite: true,
-    centerPadding: "60px",
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    afterChange: function (index: number) {
-      console.log(
-        `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-      );
-    },
-    // small padding inside slides handled via responsive wrapper classes (p-2 / p-3)
-    responsive: [
-      // extra-large desktops
-      { breakpoint: 1600, settings: { slidesToShow: 5, slidesToScroll: 1 } },
-      { breakpoint: 1536, settings: { slidesToShow: 5, slidesToScroll: 1 } }, // 2xl
-      // xl screens
-      { breakpoint: 1280, settings: { slidesToShow: 5, slidesToScroll: 1 } }, // xl
-      // large / desktop
-      { breakpoint: 1100, settings: { slidesToShow: 4, slidesToScroll: 1 } },
-      { breakpoint: 1024, settings: { slidesToShow: 4, slidesToScroll: 1 } }, // lg
-      // medium (tablet)
-      { breakpoint: 900, settings: { slidesToShow: 3, slidesToScroll: 1 } },
-      { breakpoint: 768, settings: { slidesToShow: 3, slidesToScroll: 1 } }, // md
-      // small (large phones)
-      { breakpoint: 640, settings: { slidesToShow: 2, slidesToScroll: 1 } }, // sm
-      // tiny phones
-      { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-      { breakpoint: 380, settings: { slidesToShow: 1, slidesToScroll: 1 } },
-    ],
-  };
 
   const settingsMain = {
     dots: false,
@@ -359,8 +319,8 @@ export default function ProductDetails() {
         <>
           {/* skeleton loading */}
           <div className="min-h-dvh bg-gradient-to-b from-slate-50 to-white py-10 px-4">
-            <div className="max-w-7xl mx-auto">
-              <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+            <div className="max-w-7xl h-[55rem] mx-auto">
+              <div className="bg-white h-full rounded-3xl shadow-xl overflow-hidden">
                 <div className="md:flex">
                   {/* LEFT: Image skeleton */}
                   <div className="md:w-1/2 h-[45rem] p-6 md:p-8 bg-slate-50">
@@ -430,81 +390,9 @@ export default function ProductDetails() {
         </h1>
         {relatedProducts && (
           <div className="slider-container group relative mt-5 sm:mt-10 cursor-pointer">
-            <Slider {...settings}>
-              {relatedProducts.length
-                ? relatedProducts.map(
-                    (
-                      product: {
-                        id: string;
-                        title: string;
-                        slug: string;
-                        imageCover: string;
-                        ratingsAverage: string;
-                        price: string;
-                        category: string;
-                      },
-                      idx
-                    ) => (
-                      <div key={product.id || idx} className="p-3">
-                        <div
-                          onClick={() => {
-                            navigate(
-                              `/productdetails/${category}/${product.id}`
-                            );
-                            setProductDetails(null);
-                          }}
-                          className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group/card"
-                        >
-                          <div className="relative w-full h-[16rem] overflow-hidden">
-                            <img
-                              src={product.imageCover}
-                              alt={product.slug}
-                              className="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500 ease-out"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
-                          </div>
+            <ProductsSlider setter={setProductDetails} products={relatedProducts} ></ProductsSlider>
 
-                          <div className="p-4 sm:p-5 bg-slate-50 text-slate-800">
-                            <h4 className="font-semibold text-sm sm:text-md 2xl:text-lg truncate">
-                              {product.title
-                                .trim()
-                                .split(/\s+/)
-                                .slice(0, 3)
-                                .join(" ")}
-                            </h4>
-
-                            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mt-2">
-                              <span className="text-slate-600 font-semibold text-xs md:text-sm 2xl:text-md">
-                                {product.price} EGP
-                              </span>
-
-                              <span className="flex items-center gap-1 text-xs md:text-sm 2xl:text-md text-yellow-500 font-medium">
-                                {product.ratingsAverage}
-                                <i className="fas fa-star"></i>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  )
-                : Array.from({ length: 10 }).map((_, idx) => (
-                    <div key={idx} className="p-3">
-                      <div className="bg-white rounded-2xl shadow-md overflow-hidden p-4">
-                        <div className="h-[16rem]">
-                          <Skeleton height={"100%"} className="rounded-xl" />
-                        </div>
-                        <div className="mt-4 space-y-2">
-                          <Skeleton height={18} />
-                          <Skeleton height={18} />
-                          <Skeleton height={18} />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-            </Slider>
-
-            <div className="absolute flex text-sm sm:text-md 2xl:text-lg -bottom-10 left-1/2 transform -translate-x-1/2 items-center gap-2 text-slate-500">
+            <div  className="absolute flex text-sm sm:text-md 2xl:text-lg -bottom-10 left-1/2 transform -translate-x-1/2 items-center gap-2 text-slate-500">
               <span className="animate-bounce">←</span>
               <span>{t("scroll for more")}</span>
               <span className="animate-bounce">→</span>
@@ -516,26 +404,3 @@ export default function ProductDetails() {
   );
 }
 
-function NextArrow(props: any) {
-  const { onClick } = props;
-  return (
-    <div
-      onClick={onClick}
-      className="hidden md:block  absolute -right-10 top-1/2 -translate-y-1/2 z-30 bg-slate-800  hover:bg-slate-950 text-slate-50 py-2 px-3 rounded-2xl cursor-pointer shadow-lg transition"
-    >
-      <i className="fas fa-chevron-right text-xs"></i>
-    </div>
-  );
-}
-
-function PrevArrow(props: any) {
-  const { onClick } = props;
-  return (
-    <div
-      onClick={onClick}
-      className="hidden md:block  absolute -left-10 top-1/2 -translate-y-1/2 z-30 bg-slate-800  hover:bg-slate-950 text-slate-50 py-2 px-3 rounded-2xl cursor-pointer shadow-lg transition"
-    >
-      <i className="fas fa-chevron-left text-xs"></i>
-    </div>
-  );
-}

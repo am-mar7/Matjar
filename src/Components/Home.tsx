@@ -2,12 +2,15 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import axios from "axios";
+import BrandsSkeleton from "./skeletonCompnentx/BrandsSkeleton";
+import homebg1 from "../assets/Images/homebg1.jpeg";
+import homebg2 from "../assets/Images/homebg2.jpeg";
+import homebg3 from "../assets/Images/homebg3.jpeg";
+import homebg4 from "../assets/Images/homebg4.jpeg";
 import CategoriesSkeleton from "./skeletonCompnentx/CategoriesSkeleton";
 import {
   FaTruck,
@@ -15,11 +18,8 @@ import {
   FaHeadset,
   FaShieldAlt,
 } from "react-icons/fa";
-import BrandsSkeleton from "./skeletonCompnentx/BrandsSkeleton";
-import homebg1 from "../assets/Images/homebg1.jpeg";
-import homebg2 from "../assets/Images/homebg2.jpeg";
-import homebg3 from "../assets/Images/homebg3.jpeg";
-import homebg4 from "../assets/Images/homebg4.jpeg";
+import ProductsSlider from "./ProductsSlider";
+
 const images: string[] = [homebg1, homebg2, homebg3 , homebg4];
 
 function Home() {
@@ -52,41 +52,6 @@ function Home() {
       desc: t("features.reliable_desc"),
     },
   ];
-  const settings = {
-    arrows: true,
-    dots: false,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    swipeToSlide: true,
-    className: "center",
-    cssEase: "ease-in-out",
-    infinite: true,
-    adaptiveHeight: true,
-    centerPadding: "60px",
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    // small padding inside slides handled via responsive wrapper classes (p-2 / p-3)
-    responsive: [
-      // extra-large desktops
-      { breakpoint: 1600, settings: { slidesToShow: 5, slidesToScroll: 1 } },
-      { breakpoint: 1536, settings: { slidesToShow: 5, slidesToScroll: 1 } }, // 2xl
-      // xl screens
-      { breakpoint: 1280, settings: { slidesToShow: 5, slidesToScroll: 1 } }, // xl
-      // large / desktop
-      { breakpoint: 1100, settings: { slidesToShow: 4, slidesToScroll: 1 } },
-      { breakpoint: 1024, settings: { slidesToShow: 4, slidesToScroll: 1 } }, // lg
-      // medium (tablet)
-      { breakpoint: 900, settings: { slidesToShow: 3, slidesToScroll: 1 } },
-      { breakpoint: 768, settings: { slidesToShow: 3, slidesToScroll: 1 } }, // md
-      // small (large phones)
-      { breakpoint: 640, settings: { slidesToShow: 2, slidesToScroll: 1 } }, // sm
-      // tiny phones
-      { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-      { breakpoint: 380, settings: { slidesToShow: 1, slidesToScroll: 1 } },
-    ],
-  };
 
   function getCategories() {
     // if (localStorage.getItem("categories")) {
@@ -360,72 +325,7 @@ function Home() {
 
           {products && (
             <div className="slider-container group relative mt-5 sm:mt-10 cursor-pointer">
-              <Slider {...settings}>
-                {products.length
-                  ? products.map(
-                      (
-                        product: {
-                          id: string;
-                          title: string;
-                          slug: string;
-                          imageCover: string;
-                          ratingsAverage: string;
-                          price: string;
-                        },
-                        idx
-                      ) => (
-                        <div key={product.id || idx} className="p-3">
-                          <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group/card">
-                            <div className="relative w-full h-[16rem] overflow-hidden">
-                              <img
-                                src={product.imageCover}
-                                alt={product.slug}
-                                className="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500 ease-out"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"></div>
-                            </div>
-
-                            <div className="p-4 sm:p-5 bg-slate-50 text-slate-800">
-                              <h4 className="font-semibold text-sm sm:text-md 2xl:text-lg truncate">
-                                {product.title
-                                  .trim()
-                                  .split(/\s+/)
-                                  .slice(0, 3)
-                                  .join(" ")}
-                              </h4>
-
-                              <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mt-2">
-                                <span className="text-slate-600 font-semibold text-xs md:text-sm 2xl:text-md">
-                                  {product.price} EGP
-                                </span>
-
-                                <span className="flex items-center gap-1 text-xs md:text-sm 2xl:text-md text-yellow-500 font-medium">
-                                  {product.ratingsAverage}
-                                  <i className="fas fa-star"></i>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    )
-                  : // ✅ لف السكلتون بنفس structure الـ slide
-                    Array.from({ length: 10 }).map((_, idx) => (
-                      <div key={idx} className="p-3">
-                        <div className="bg-white rounded-2xl shadow-md overflow-hidden p-4">
-                          <div className="h-[16rem]">
-                            <Skeleton height={"100%"} className="rounded-xl" />
-                          </div>
-                          <div className="mt-4 space-y-2">
-                            <Skeleton height={18} />
-                            <Skeleton height={18} />
-                            <Skeleton height={18} />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-              </Slider>
-
+              <ProductsSlider setter={(val:any)=>val} products={products}></ProductsSlider>
               <div className="absolute flex text-sm sm:text-md 2xl:text-lg -bottom-10 left-1/2 transform -translate-x-1/2 items-center gap-2 text-slate-500">
                 <span className="animate-bounce">←</span>
                 <span className="text-sm sm:text-lg">
@@ -441,28 +341,6 @@ function Home() {
   );
 }
 
-function NextArrow(props: any) {
-  const { onClick } = props;
-  return (
-    <div
-      onClick={onClick}
-      className="hidden md:block  absolute -right-10 top-1/2 -translate-y-1/2 z-30 bg-slate-800  hover:bg-slate-950 text-slate-50 py-2 px-3 rounded-2xl cursor-pointer shadow-lg transition"
-    >
-      <i className="fas fa-chevron-right text-xs"></i>
-    </div>
-  );
-}
 
-function PrevArrow(props: any) {
-  const { onClick } = props;
-  return (
-    <div
-      onClick={onClick}
-      className="hidden md:block  absolute -left-10 top-1/2 -translate-y-1/2 z-30 bg-slate-800  hover:bg-slate-950 text-slate-50 py-2 px-3 rounded-2xl cursor-pointer shadow-lg transition"
-    >
-      <i className="fas fa-chevron-left text-xs"></i>
-    </div>
-  );
-}
 
 export default Home;

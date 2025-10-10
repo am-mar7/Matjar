@@ -55,7 +55,6 @@ export default function Products() {
     setCategories(Array.from(setC));
   }, [products]);
 
-  // ✅ Typed motion variants
   const container: Variants = {
     hidden: { opacity: 0 },
     show: {
@@ -164,7 +163,7 @@ export default function Products() {
                       role="article"
                       aria-label={product.title}
                     >
-                      <Link to={`/productdetails/${product?.category?.name}/${product.id}`}>
+                      <Link to={`/productdetails/${product?.category?.name}/${product?.id}`}>
                         <div className="relative w-full h-[18rem] overflow-hidden">
                           <img
                             src={product.imageCover}
