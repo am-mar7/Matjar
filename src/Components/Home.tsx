@@ -317,7 +317,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="w-full py-10 flex justify-center bg-slate-50">
+      <section className="w-full py-14 flex justify-center bg-slate-50">
         <div className="w-full max-w-7xl px-5 md:px-10">
           <h2 className="text-2xl sm:text-3xl font-extrabold mb-6 text-slate-900 relative w-fit mx-auto after:absolute after:left-0 after:bottom-[-6px] after:h-[3px] after:w-full after:bg-cyan-500 after:rounded-full">
             {t("bestSeller")}

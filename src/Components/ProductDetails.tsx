@@ -385,11 +385,11 @@ export default function ProductDetails() {
       )}
 
       <div className="max-w-7xl mx- py-10  lg:mx-auto mx-6 sm:mx-0">
-        <h1 className="text-lg sm:text-2xl lg:text-3xl  font-semibold text-slate-800">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl text-center xl:text-start font-semibold text-slate-800">
           {t("suggetion")}
         </h1>
         {relatedProducts && (
-          <div className="slider-container group relative mt-5 sm:mt-10 cursor-pointer">
+          <div className="slider-container group sm:mx-5 md:mx-0 relative mt-5 sm:mt-10 cursor-pointer">
             <ProductsSlider setter={setProductDetails} products={relatedProducts} ></ProductsSlider>
 
             <div  className="absolute flex text-sm sm:text-md 2xl:text-lg -bottom-10 left-1/2 transform -translate-x-1/2 items-center gap-2 text-slate-500">
