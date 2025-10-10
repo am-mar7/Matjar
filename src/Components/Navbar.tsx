@@ -3,7 +3,7 @@ import { UserContext } from "../Context/UserContext";
 import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
-
+import logo from '../assets/logo.png'
 export default function Navbar() {
   const { t, i18n } = useTranslation();
   const user = useContext(UserContext);
@@ -23,7 +23,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to='/'>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-wide hover:scale-105 transition">
-            {t('logo')}
+            <div className="flex gap-0.5 items-center"><img src={logo} className="w-[30px] sm:w-[50px]" alt="Matjar logo" /> {t('logo')}</div>
           </h1>
         </Link>
 
