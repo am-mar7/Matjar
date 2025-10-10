@@ -431,7 +431,7 @@ function Home() {
 
               <div className="absolute flex text-sm sm:text-md 2xl:text-lg -bottom-10 left-1/2 transform -translate-x-1/2 items-center gap-2 text-slate-500">
                 <span className="animate-bounce">←</span>
-                <span>{t('scroll for more')}</span>
+                <span className="text-sm sm:text-lg">{t('scroll for more')}</span>
                 <span className="animate-bounce">→</span>
               </div>
             </div>
