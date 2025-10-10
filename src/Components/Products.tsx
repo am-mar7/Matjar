@@ -6,6 +6,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 type Product = {
   id: string;
@@ -19,9 +20,10 @@ type Product = {
 };
 
 export default function Products() {
+  const location = useLocation();  
   const { t } = useTranslation();
   const [products, setProducts] = useState<Product[]>([]);
-  const [filter, setFilter] = useState<string>("all_products");
+  const [filter, setFilter] = useState<string>(location?.state?.category || "all_products");
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 

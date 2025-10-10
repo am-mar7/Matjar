@@ -9,11 +9,11 @@ import {
   FaUsers,
   FaStar,
 } from "react-icons/fa";
-
 import homebg1 from "../assets/Images/homebg1.jpeg";
 import homebg2 from "../assets/Images/homebg2.jpeg";
 import homebg3 from "../assets/Images/homebg3.jpeg";
 import homebg4 from "../assets/Images/homebg4.jpeg";
+import { Link } from "react-router-dom";
 
 const heroImages: string[] = [homebg1, homebg2, homebg3, homebg4];
 
@@ -358,9 +358,9 @@ function aboutPage() {
             {t("aboutPage.cta_subtitle") ||
               "Experience quality that makes a difference. Shop our latest collection and discover why thousands trust us."}
           </p>
-          <button className="bg-slate-900 hover:bg-white text-white hover:text-cyan-600 px-8 sm:px-12 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-base uppercase tracking-wider shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
+          <Link to="/products" className="bg-slate-900 hover:bg-white text-white hover:text-cyan-600 px-8 sm:px-12 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-base uppercase tracking-wider shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
             {t("aboutPage.cta_button") || "Shop Now"}
-          </button>
+          </Link>
         </div>
       </section>
     </div>

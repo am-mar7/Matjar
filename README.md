@@ -1,73 +1,62 @@
-# React + TypeScript + Vite
+# 🛍️ Matjar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Matjar** is a modern e-commerce web application that provides a smooth, responsive, and user-friendly online shopping experience.  
+Built with **React**, **Tailwind CSS**, **Framer Motion**, and **Axios**, Matjar integrates full user authentication, cart management, and secure payment processing to deliver a real-world shopping experience.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## React Compiler
+🔗 [Visit Matjar Live Demo](YOUR_DEPLOYED_LINK_HERE)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 👤 User Authentication & Profile
+- Full signup, login, and logout system using **JWT authentication**.
+- Secure **password reset** and **forgot password** functionality.
+- Editable **user profile** — users can update their name, email, and password.
+- Authentication persistence using local storage and route protection.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🌍 Multi-language Support
+- Built-in **Arabic / English language switcher** powered by **i18next**.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 🛒 Shopping & Orders
+- Fully functional **shopping cart** with quantity management.
+- Two payment methods:
+  - 💳 **Stripe** integration for online payments.
+  - 🚚 **Cash on Delivery** option for local orders.
+- **Orders Page** — users can track all placed orders with live status updates.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### ❤️ Favorites
+- Users can add/remove products to a **favorites page** for easy access later.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 📱 Responsive UI & Animations
+- Fully responsive design optimized for all devices.
+- Elegant, modern animations using **Framer Motion**.
+- Clean, minimal UI powered by **Tailwind CSS** and modern layout practices.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🧭 Navigation & Routing
+- Built using **React Router (Routes API)** for clean and intuitive navigation.
+- Includes protected routes for authenticated pages.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## 🧰 Tech Stack
+
+| Category | Technologies |
+|-----------|---------------|
+| **Frontend** | React.js, React Router (Routes API) |
+| **Styling** | Tailwind CSS |
+| **Animations** | Framer Motion |
+| **HTTP Client** | Axios |
+| **State Management** | React Hooks & Context API |
+| **Internationalization** | i18next |
+| **Payments** | Stripe |
+| **Deployment** | Vercel / Netlify (or specify yours) |
+
+---
+
+## 📂 Folder Structure
+

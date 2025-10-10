@@ -19,8 +19,9 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 import ProductsSlider from "./ProductsSlider";
+import { Link } from "react-router-dom";
 
-const images: string[] = [homebg1, homebg2, homebg3 , homebg4];
+const images: string[] = [homebg1, homebg2, homebg3, homebg4];
 
 function Home() {
   const { t } = useTranslation();
@@ -241,21 +242,23 @@ function Home() {
                   slug: string;
                   name: string;
                 }) => (
-                  <div
-                    key={category.id || category.slug || category.name}
-                    className="bg-white rounded-xl shadow-md overflow-hidden transform transition-transform hover:scale-105 hover:shadow-xl cursor-pointer"
-                  >
-                    <div className="w-full h-40 sm:h-48 md:h-62 overflow-hidden">
-                      <img
-                        className="w-full h-full object-cover"
-                        src={category.image}
-                        alt={category.slug}
-                      />
+                  <Link to={`/products`} state={{category:category.name}}>
+                    <div
+                      key={category.id || category.slug || category.name}
+                      className="bg-white rounded-xl shadow-md overflow-hidden transform transition-transform hover:scale-105 hover:shadow-xl cursor-pointer"
+                    >
+                      <div className="w-full h-40 sm:h-48 md:h-62 overflow-hidden">
+                        <img
+                          className="w-full h-full object-cover"
+                          src={category.image}
+                          alt={category.slug}
+                        />
+                      </div>
+                      <h4 className="text-center text-lg font-semibold mt-3 mb-4 text-slate-800">
+                        {category.name}
+                      </h4>
                     </div>
-                    <h4 className="text-center text-lg font-semibold mt-3 mb-4 text-slate-800">
-                      {category.name}
-                    </h4>
-                  </div>
+                  </Link>
                 )
               )}
             </div>
@@ -325,7 +328,10 @@ function Home() {
 
           {products && (
             <div className="slider-container group relative mt-5 sm:mt-10 cursor-pointer">
-              <ProductsSlider setter={(val:any)=>val} products={products}></ProductsSlider>
+              <ProductsSlider
+                setter={(val: any) => val}
+                products={products}
+              ></ProductsSlider>
               <div className="absolute flex text-sm sm:text-md 2xl:text-lg -bottom-10 left-1/2 transform -translate-x-1/2 items-center gap-2 text-slate-500">
                 <span className="animate-bounce">←</span>
                 <span className="text-sm sm:text-lg">
@@ -340,7 +346,5 @@ function Home() {
     </>
   );
 }
-
-
 
 export default Home;
