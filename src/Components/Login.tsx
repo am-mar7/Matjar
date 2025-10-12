@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useContext, useState } from "react";
 import { UserContext } from "../Context/UserContext";
 import axios from "axios";
+const superUserEmail = import.meta.env.VITE_SUPER_EMAIL
 
 export default function Login() {
   const { t , i18n} = useTranslation();
@@ -33,12 +34,18 @@ export default function Login() {
 
     axios
       .post("https://ecommerce.routemisr.com/api/v1/auth/signin", values)
-      .then(({ data }) => {
+      .then(({ data }) => {    
+        const role = data?.user?.email === superUserEmail ? "admin" : "user";
+        console.log(role);
+        
         user?.setUserName(data?.user?.name);
+        user?.setRole(role);
         localStorage.setItem("userToken", data.token);
-        localStorage.setItem("userName", JSON.stringify(data.user.name));
-        localStorage.setItem("userEmail", JSON.stringify(values.email));
-        navigator("/");
+        localStorage.setItem("userName", data.user.name);
+        localStorage.setItem("userEmail", values.email);        
+        localStorage.setItem("role", role);
+        
+        values.email === superUserEmail ? navigator("/Admin") : navigator("/");
       })
       .catch((response) => {
         console.log(response);

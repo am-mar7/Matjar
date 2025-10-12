@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
+    "@tanstack/react-query": "^5.90.2",
     "axios": "^1.12.2",
     "formik": "^2.4.6",
     "framer-motion": "^12.23.22",
@@ -21,6 +22,7 @@
     "i18next": "^25.5.3",
     "i18next-browser-languagedetector": "^8.2.0",
     "i18next-http-backend": "^3.0.2",
+    "lucide-react": "^0.545.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-i18next": "^16.0.0",
@@ -28,6 +30,7 @@
     "react-loading-skeleton": "^3.5.0",
     "react-router-dom": "^7.9.3",
     "react-slick": "^0.31.0",
+    "recharts": "^3.2.1",
     "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.24.0",
     "sweetalert2-react-content": "^5.1.0",

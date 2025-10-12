@@ -20,19 +20,26 @@ type Product = {
 };
 
 export default function Products() {
-  const location = useLocation();  
+  const location = useLocation();
   const { t } = useTranslation();
   const [products, setProducts] = useState<Product[]>([]);
-  const [filter, setFilter] = useState<string>(location?.state?.category || "all_products");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages , setTotalPages] = useState(2);
+
+  const [filter, setFilter] = useState<string>(
+    location?.state?.category || "all_products"
+  );
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  async function getProducts() {
+  async function getProducts(page = 1) {
     setLoading(true);
     axios
-      .get("https://ecommerce.routemisr.com/api/v1/products")
+      .get(`https://ecommerce.routemisr.com/api/v1/products?page=${page}`)
       .then(({ data }) => {
-        setProducts(data.data);
+        console.log(data);
+        setTotalPages(data?.metadata?.numberOfPages)
+        setProducts(data?.data);
       })
       .catch((response) => {
         console.log(response);
@@ -43,8 +50,10 @@ export default function Products() {
   }
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    getProducts(currentPage);
+    console.log(currentPage);
+    
+  }, [currentPage]);
 
   useEffect(() => {
     if (!products || products.length === 0) return;
@@ -165,7 +174,9 @@ export default function Products() {
                       role="article"
                       aria-label={product.title}
                     >
-                      <Link to={`/productdetails/${product?.category?.name}/${product?.id}`}>
+                      <Link
+                        to={`/productdetails/${product?.category?.name}/${product?.id}`}
+                      >
                         <div className="relative w-full h-[18rem] overflow-hidden">
                           <img
                             src={product.imageCover}
@@ -223,6 +234,38 @@ export default function Products() {
             </div>
           )}
         </div>
+      </div>
+      {/* Pagination Controls */}
+      <div className="flex justify-center gap-2 mt-10">
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((p) => p - 1)}
+          className="cursor-pointer px-4 py-2 border rounded-md disabled:opacity-50 hover:bg-slate-200"
+        >
+          Prev
+        </button>
+
+        {[...Array(totalPages)].map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentPage(i + 1)}
+            className={`cursor-pointer px-4 py-2 border rounded-md ${
+              currentPage === i + 1
+                ? "bg-slate-800 text-white"
+                : "bg-white text-slate-700"
+            }`}
+          >
+            {i + 1}
+          </button>
+        ))}
+
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage((p) => p + 1)}
+          className="px-4 cursor-pointer py-2 border rounded-md disabled:opacity-50 hover:bg-slate-200"
+        >
+          Next
+        </button>
       </div>
     </>
   );

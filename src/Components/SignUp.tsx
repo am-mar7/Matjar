@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { UserContext } from "../Context/UserContext";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18next";
+const superUserEmail = import.meta.env.VITE_SUPER_EMAIL
 
 export default function SignUp() {
   const { t } = useTranslation();
@@ -62,11 +63,14 @@ export default function SignUp() {
     axios
       .post("https://ecommerce.routemisr.com/api/v1/auth/signup", values)
       .then(({ data }) => {
+        const role = data?.user?.email === superUserEmail ? "admin" : "user";
         user?.setUserName(data?.user?.name);
+        user?.setRole(role);
         localStorage.setItem("userToken", data.token);
-        localStorage.setItem("userName", JSON.stringify(data.user.name));
-        localStorage.setItem("userEmail", JSON.stringify(values.email));
-        navigator("/");
+        localStorage.setItem("userName", data.user.name);
+        localStorage.setItem("userEmail", values.email);        
+        localStorage.setItem("role", role);        
+        values.email === superUserEmail ? navigator("/Admin") : navigator("/");       
       })
       .catch((response) => {
         setApiError(response?.response?.data?.message || response.message);

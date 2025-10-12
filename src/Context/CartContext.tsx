@@ -102,8 +102,9 @@ export default function CartContextProvider({
     shippingAddress: { details: string; phone: string; city: string }
   ): Promise<any> {
     try {
+      const base = window.location.origin
       const { data } = await axios.post(
-        `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${id}?url=http://localhost:5173`,
+        `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${id}?url=${base}/Matjar`,
         { shippingAddress },
         { headers: { token: userToken } }
       );

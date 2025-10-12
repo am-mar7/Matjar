@@ -5,7 +5,7 @@ type ProtectedRouteProps = {
 }
 
 export default function ProtectedRoute({children}:ProtectedRouteProps) {
-
+  
   if(! localStorage.getItem('userToken')){
     return <Login></Login>
   }    

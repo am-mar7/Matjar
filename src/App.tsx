@@ -21,6 +21,14 @@ import CartContextProvider from "./Context/CartContext.tsx";
 import Orders from "./Components/Orders.tsx";
 import ProtectedRoute from "./Components/ProtectedRoute.tsx";
 import NotFound from "./Components/NotFound.tsx";
+import AdminProtectRoute from "./Components/Admin/AdminProtectRoute.tsx";
+import Dashboard from "./Components/Admin/Dashboard.tsx";
+import AdminLayout from "./Components/Admin/AdminLayout.tsx";
+import AdminOrders from "./Components/Admin/AdminOrders.tsx";
+import Users from "./Components/Admin/Users.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import OrderDetails from "./Components/Admin/OrderDetails.tsx";
+import UserDetails from "./Components/Admin/UserDetails.tsx";
 
 const route = createBrowserRouter(
   [
@@ -29,13 +37,13 @@ const route = createBrowserRouter(
       element: <Layout></Layout>,
       children: [
         { path: "", element: <Home /> },
-        { path: "/cart", element: <Cart /> },
-        { path: "/products", element: <Products /> },
-        { path: "/about", element: <About /> },
-        { path: "/login", element: <Login /> },
-        { path: "/signup", element: <SignUp /> },
+        { path: "cart", element: <Cart /> },
+        { path: "products", element: <Products /> },
+        { path: "about", element: <About /> },
+        { path: "login", element: <Login /> },
+        { path: "signup", element: <SignUp /> },
         {
-          path: "/profile",
+          path: "profile",
           element: (
             <ProtectedRoute>
               {" "}
@@ -43,18 +51,33 @@ const route = createBrowserRouter(
             </ProtectedRoute>
           ),
         },
-        { path: "/favorites", element: <Favorites /> },
-        { path: "/resetPassword", element: <ResetPassword /> },
-        { path: "/resetPasswordForm", element: <ResetPasswordForm /> },
-        { path: "/productdetails/:category/:id", element: <ProductDetails /> },
-        { path: "/allorders", element: <Orders /> },
+        { path: "favorites", element: <Favorites /> },
+        { path: "resetPassword", element: <ResetPassword /> },
+        { path: "resetPasswordForm", element: <ResetPasswordForm /> },
+        { path: "productdetails/:category/:id", element: <ProductDetails /> },
+        { path: "allorders", element: <Orders /> },
         { path: "*", element: <NotFound /> },
+      ],
+    },
+    {
+      path: "/Admin",
+      element: (
+        <AdminProtectRoute>
+          <AdminLayout />
+        </AdminProtectRoute>
+      ),
+      children: [
+        { path: "", element: <Dashboard /> },
+        { path: "orders", element: <AdminOrders /> },
+        { path: "users", element: <Users /> },
+        { path: "orderdetails", element: <OrderDetails /> },
+        { path: "userdetails", element: <UserDetails /> },
       ],
     },
   ],
   { basename: "/Matjar" }
 );
-
+const query = new QueryClient()
 function App() {
   const { i18n } = useTranslation();
 
@@ -64,13 +87,15 @@ function App() {
   }, [i18n.language]);
 
   return (
-    <CartContextProvider>
-      <WishListContextProvider>
-        <UserContextProvider>
-          <RouterProvider router={route} />
-        </UserContextProvider>
-      </WishListContextProvider>
-    </CartContextProvider>
+    <QueryClientProvider client={query}>
+      <CartContextProvider>
+        <WishListContextProvider>
+          <UserContextProvider>
+            <RouterProvider router={route} />
+          </UserContextProvider>
+        </WishListContextProvider>
+      </CartContextProvider>
+    </QueryClientProvider>
   );
 }
 

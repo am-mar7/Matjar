@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext , useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { UserContext } from "../Context/UserContext";
@@ -21,12 +21,9 @@ export default function Profile() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [profile, setProfile] = useState({
     name:
-      userCtx?.userName ||
-      (localStorage.getItem("userName")
-        ? JSON.parse(localStorage.getItem("userName")!)
-        : ""),
+      userCtx?.userName ||'',
     email: localStorage.getItem("userEmail")
-      ? JSON.parse(localStorage.getItem("userEmail")!)
+      ? localStorage.getItem("userEmail")
       : "",
   });
   const headers = {
@@ -56,7 +53,7 @@ export default function Profile() {
       .required(t("profile.errors.confirmRequired")),
   });
   const formik = useFormik({
-    initialValues: { name: profile.name, email: profile.email },
+    initialValues: { name: profile?.name || '', email: profile?.email || '' },
     validationSchema: yupSchema,
     onSubmit: handleUpdate,
   });
@@ -74,7 +71,9 @@ export default function Profile() {
     localStorage.removeItem("userName");
     localStorage.removeItem("userToken");
     localStorage.removeItem("userEmail");
+    localStorage.removeItem("role");
     userCtx?.setUserName(null);
+    userCtx?.setRole(null);
     navigator("/");
   }
 
@@ -144,9 +143,6 @@ export default function Profile() {
     changePasswordFormik.touched.currentPassword = false;
     setShowPasswordForm(false);
   }
-  useEffect(() => {
-    console.log(profile.name.slice(1 , profile.name.length-1));
-  }, [profile.name]);
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 sm:p-6">
@@ -156,9 +152,7 @@ export default function Profile() {
           <h2 className="text-lg  sm:text-2xl font-bold text-slate-900 mb-3">
             {t("profile.welcomeBack", {
               name:
-                profile.name[0] === '"'
-                  ? profile.name.slice(1, profile.name.length - 1)
-                  : profile.name || t("profile.user"),
+                profile?.name || t("profile.user"),
             })}
           </h2>
           <p className="text-sm text-slate-600 mb-6">{t("profile.subtitle")}</p>
