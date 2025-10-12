@@ -21,7 +21,7 @@ Built with **React**, **Tailwind CSS**, **Framer Motion**, and **Axios**, Matjar
 
 ---
 
-## 🧠 Admin Dashboard (New)
+## 🧠 Admin Dashboard
 
 A powerful **Admin Dashboard** has been added to manage and monitor all aspects of the application.
 
@@ -80,9 +80,9 @@ A powerful **Admin Dashboard** has been added to manage and monitor all aspects 
 | **Styling** | Tailwind CSS |
 | **Animations** | Framer Motion |
 | **HTTP Client** | Axios |
-| **State & Data Fetching** | React Query |
+| **State Management & Server Caching** | React Query (`useQuery`, `useMutation`) |
 | **Internationalization** | i18next |
-| **Charts** | Recharts |
+| **Charts & Data Visualization** | Recharts |
 | **Payments** | Stripe |
 | **Deployment** | GitHub Pages |
 
