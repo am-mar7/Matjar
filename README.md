@@ -19,6 +19,35 @@ Built with **React**, **Tailwind CSS**, **Framer Motion**, and **Axios**, Matjar
 - Editable **user profile** — users can update their name, email, and password.
 - Authentication persistence using local storage and route protection.
 
+---
+
+## 🧠 Admin Dashboard (New)
+
+A powerful **Admin Dashboard** has been added to manage and monitor all aspects of the application.
+
+### 🧾 Dashboard Features
+- **Overview cards** showing:
+  - Total Revenue
+  - Paid Orders
+  - Users Count  
+  *(all calculated dynamically for the latest 40 orders)*  
+- **Orders Management**
+  - View all orders with customer info, payment type, and status.
+  - Inspect full order details including items, address, and payment data.
+- **Users Management**
+  - View all registered users.
+  - Open each user to see their profile details and all their placed orders.
+- **Charts & Insights**
+  - Monthly orders visualization using **Recharts**.
+- **Error Handling & Refresh**
+  - Automatic background refetch and error fallback UI.
+- **Responsive UI**
+  - Optimized for both desktop and mobile.
+  - Light theme built with `slate-50` and soft contrast colors.
+
+---
+
+
 ### 🌍 Multi-language Support
 - Built-in **Arabic / English language switcher** powered by **i18next**.
 
@@ -51,12 +80,27 @@ Built with **React**, **Tailwind CSS**, **Framer Motion**, and **Axios**, Matjar
 | **Styling** | Tailwind CSS |
 | **Animations** | Framer Motion |
 | **HTTP Client** | Axios |
-| **State Management** | React Hooks & Context API |
+| **State & Data Fetching** | React Query |
 | **Internationalization** | i18next |
+| **Charts** | Recharts |
 | **Payments** | Stripe |
-| **Deployment** | github pages |
+| **Deployment** | GitHub Pages |
 
 ---
 
+## 🧑‍💻 Developer
 
+**Ammar Alaa Omar**  
+📧 [ammaralaa470@gmail.com](mailto:ammaralaa470@gmail.com)  
+🔗 [LinkedIn](https://www.linkedin.com/in/ammar-alaa-am77)  
+💻 [GitHub](https://github.com/am-mar7)
 
+---
+
+## 🏗️ Setup & Run Locally
+
+```bash
+git clone https://github.com/am-mar7/Matjar.git
+cd Matjar
+npm install
+npm run dev
