@@ -174,19 +174,19 @@ function Home() {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.6 }}
             >
-              <button
+              <Link to='products'
                 className="cursor-pointer text-center text-sm sm:text-base md:text-lg bg-cyan-500 hover:bg-cyan-600 text-white py-3 px-6 sm:px-8 rounded-full font-semibold shadow-lg transition-all duration-300 hover:scale-105"
                 aria-label={t("hero_shop_now")}
               >
                 {t("hero_shop_now")}
-              </button>
+              </Link >
 
-              <button
+              <Link to='about'
                 className="cursor-pointer text-center text-sm sm:text-base md:text-lg border-2 border-slate-500 text-slate-200 py-3 px-6 sm:px-8 rounded-full hover:bg-slate-800 hover:border-slate-400 transition-all duration-300"
                 aria-label={t("hero_learn_more")}
               >
                 {t("hero_learn_more")}
-              </button>
+              </Link>
             </motion.div>
           </div>
         </div>
