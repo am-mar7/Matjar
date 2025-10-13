@@ -242,9 +242,8 @@ function Home() {
                   slug: string;
                   name: string;
                 }) => (
-                  <Link to={`/products`} state={{category:category.name}}>
-                    <div
-                      key={category.id || category.slug || category.name}
+                  <Link key={category.id || category.slug || category.name} to={`/products`} state={{category:category.name}}>
+                    <div                      
                       className="bg-white rounded-xl shadow-md overflow-hidden transform transition-transform hover:scale-105 hover:shadow-xl cursor-pointer"
                     >
                       <div className="w-full h-40 sm:h-48 md:h-62 overflow-hidden">
