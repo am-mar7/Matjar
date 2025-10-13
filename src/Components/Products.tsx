@@ -242,7 +242,7 @@ export default function Products() {
           onClick={() => setCurrentPage((p) => p - 1)}
           className="cursor-pointer px-4 py-2 border rounded-md disabled:opacity-50 hover:bg-slate-200"
         >
-          Prev
+          {t('dashboard.prev')}
         </button>
 
         {[...Array(totalPages)].map((_, i) => (
@@ -264,7 +264,7 @@ export default function Products() {
           onClick={() => setCurrentPage((p) => p + 1)}
           className="px-4 cursor-pointer py-2 border rounded-md disabled:opacity-50 hover:bg-slate-200"
         >
-          Next
+          {t('dashboard.next')}
         </button>
       </div>
     </>

@@ -23,9 +23,9 @@ export default function CartContextProvider({
 }) {
   const { t } = useTranslation();
   // const navigate = useNavigate() why can i use
-  const userToken = localStorage.getItem("userToken") || "";
-
+  
   async function addToCart(productId: string): Promise<void> {
+    const userToken = localStorage.getItem("userToken") || "";
     try {
       const { data } = await axios.post(
         "https://ecommerce.routemisr.com/api/v1/cart",
@@ -57,6 +57,7 @@ export default function CartContextProvider({
     });
   }
   async function getLoggedUserCart(): Promise<any> {
+    const userToken = localStorage.getItem("userToken") || "";
     try {
       const { data } = await axios.get(
         "https://ecommerce.routemisr.com/api/v1/cart",
@@ -68,10 +69,11 @@ export default function CartContextProvider({
       console.error(error);
     }
   }
-  async function updateCartItemCount(
+  async function updateCartItemCount(    
     productId: string,
     count: number
   ): Promise<any> {
+    const userToken = localStorage.getItem("userToken") || "";
     try {
       const data = await axios.put(
         `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
@@ -85,6 +87,7 @@ export default function CartContextProvider({
     }
   }
   async function removeItemFromCart(productId: string) {
+    const userToken = localStorage.getItem("userToken") || "";
     try {
       const data = await axios.delete(
         `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
@@ -101,6 +104,7 @@ export default function CartContextProvider({
     id: string,
     shippingAddress: { details: string; phone: string; city: string }
   ): Promise<any> {
+    const userToken = localStorage.getItem("userToken") || "";
     try {
       const base = window.location.origin
       const { data } = await axios.post(
@@ -120,6 +124,7 @@ export default function CartContextProvider({
     id: string,
     shippingAddress: { details: string; phone: string; city: string }
   ): Promise<any> {
+    const userToken = localStorage.getItem("userToken") || "";
     try {
       const { data } = await axios.post(
         `https://ecommerce.routemisr.com/api/v1/orders/${id}`,
